@@ -1,36 +1,27 @@
 package com.leetcode.dailypractice.year23.oct.week4;
+
 /**
- * https://leetcode.com/problems/longest-palindromic-substring/
- *Longest Palindromic Substring
-Medium
-27.8K
-1.6K
-Companies
-Given a string s, return the longest 
-palindromic
- 
-substring
- in s.
-
- 
-
-Example 1:
-
-Input: s = "babad"
-Output: "bab"
-Explanation: "aba" is also a valid answer.
-Example 2:
-
-Input: s = "cbbd"
-Output: "bb"
- 
-
-Constraints:
-
-1 <= s.length <= 1000
-s consist of only digits and English letters.
+ * https://leetcode.com/problems/longest-palindromic-substring/ Longest
+ * Palindromic Substring Medium 27.8K 1.6K Companies Given a string s, return
+ * the longest palindromic
+ * 
+ * substring in s.
+ * 
+ * 
+ * 
+ * Example 1:
+ * 
+ * Input: s = "babad" Output: "bab" Explanation: "aba" is also a valid answer.
+ * Example 2:
+ * 
+ * Input: s = "cbbd" Output: "bb"
+ * 
+ * 
+ * Constraints:
+ * 
+ * 1 <= s.length <= 1000 s consist of only digits and English letters.
  */
-public class SolutionFriday1028 {
+public class SolutionFriday1027 {
 	// Approach 1 using brute force mine
 	public String longestPalindrome1(String s) {
 		int len = s.length();
@@ -51,61 +42,47 @@ public class SolutionFriday1028 {
 		int len = s.length();
 		int leftCur = 0;
 		int rightCur = len - 1;
-		// String maxLenPalindromStr = "";
+		String maxLenPalindromStr = "";
 		while (leftCur <= rightCur) {
 			if (s.charAt(leftCur) == s.charAt(rightCur)) {
 				StringBuilder str = new StringBuilder(s.substring(leftCur, rightCur + 1));
 				if (str.toString().equals(str.reverse().toString())) {
-					return str.toString();
+					return maxLenPalindromStr.length()>str.length()?maxLenPalindromStr: str.toString();
 				}
-				int nextRightChLen = rightCur - s.substring(leftCur + 1, rightCur + 1).indexOf(s.charAt(rightCur)); // findNextPositionOfCh(s,s.charAt(rightCur));
-				int nextleftChLen = len - leftCur - (new StringBuilder(s.substring(leftCur, rightCur - 1)).reverse())
-						.toString().indexOf(s.charAt(leftCur));
-				if (nextleftChLen > nextRightChLen) {
-//					StringBuilder str = new StringBuilder(s.substring(rightCur-nextRightChLen, rightCur+1));
-//					if (str.length() > maxLenPalindromStr.length()&&str.toString().equals(str.reverse().toString())) {
-//						maxLenPalindromStr = str.toString();
-//					}
-					rightCur--;
-				} else if (nextRightChLen > nextleftChLen) {
-//					StringBuilder str = new StringBuilder(s.substring(leftCur, nextleftChLen+1));
-//					if (str.length() > maxLenPalindromStr.length()&&str.toString().equals(str.reverse().toString())) {
-//						maxLenPalindromStr = str.toString();
-//					}
-					leftCur++;
-				} else {
-					rightCur--;
-				}
-
-			} else if (s.charAt(leftCur + 1) == s.charAt(rightCur)) {
+				//leftCur++;
+			}  
+			if (s.charAt(leftCur + 1) == s.charAt(rightCur)) {
 				leftCur++;
 			} else if (s.charAt(leftCur) == s.charAt(rightCur - 1)) {
 				rightCur--;
 			} else {
-				int nextRightChLen = rightCur - s.substring(leftCur + 1, rightCur + 1).indexOf(s.charAt(rightCur)); // findNextPositionOfCh(s,s.charAt(rightCur));
-				int nextleftChLen = len - leftCur - (new StringBuilder(s.substring(leftCur, rightCur - 1)).reverse())
+				int nextRightChLen = rightCur - leftCur - s.substring(leftCur + 1, rightCur + 1).indexOf(s.charAt(rightCur)); // findNextPositionOfCh(s,s.charAt(rightCur));
+				int nextleftChLen = rightCur - leftCur - (new StringBuilder(s.substring(leftCur, rightCur)).reverse())
 						.toString().indexOf(s.charAt(leftCur));
 				if (nextleftChLen > nextRightChLen) {
-//					StringBuilder str = new StringBuilder(s.substring(rightCur-nextRightChLen, rightCur+1));
-//					if (str.length() > maxLenPalindromStr.length()&&str.toString().equals(str.reverse().toString())) {
-//						maxLenPalindromStr = str.toString();
-//					}
+					StringBuilder str = new StringBuilder(s.substring(rightCur-nextRightChLen, rightCur+1));
+					if (str.length() > maxLenPalindromStr.length()&&str.toString().equals(str.reverse().toString())) {
+						maxLenPalindromStr = str.toString();
+					}
 					rightCur--;
 				} else if (nextRightChLen > nextleftChLen) {
-//					StringBuilder str = new StringBuilder(s.substring(leftCur, nextleftChLen+1));
-//					if (str.length() > maxLenPalindromStr.length()&&str.toString().equals(str.reverse().toString())) {
-//						maxLenPalindromStr = str.toString();
-//					}
+					StringBuilder str = new StringBuilder(s.substring(leftCur, nextleftChLen+1));
+					if (str.length() > maxLenPalindromStr.length()&&str.toString().equals(str.reverse().toString())) {
+						maxLenPalindromStr = str.toString();
+					}
 					leftCur++;
 				} else {
-					rightCur--;
+					String s1 = longestPalindrome(s.substring(leftCur + 1, rightCur + 1));
+					String s2 = longestPalindrome(s.substring(leftCur, rightCur));
+					return s1.length()>=s2.length()?s1:s2;
 				}
 			}
 
 		}
-		return null;
+		return maxLenPalindromStr;
 	}
-	//Remote Solution
+
+	// Remote Solution
 	public String longestPalindromeSolution(String s) {
 		// Check if the input string is empty, return an empty string if so
 		if (s.isEmpty())
@@ -163,8 +140,12 @@ public class SolutionFriday1028 {
 //		System.out.println(new SolutionFriday1028().longestPalindrome("a"));
 //		System.out.println(new SolutionFriday1028().longestPalindrome("afffad"));
 //		System.out.println(new SolutionFriday1028().longestPalindrome("dadffffda"));
+//
+//		System.out.println(new SolutionFriday1028().longestPalindrome("dadffffsa"));
+		System.out.println(new SolutionFriday1027().longestPalindrome("aacabdkacaa"));
+		System.out.println(new SolutionFriday1027().longestPalindrome("bacabab"));
 
-		System.out.println(new SolutionFriday1028().longestPalindrome("dadffffsa"));
-
+		
+		
 	}
 }
