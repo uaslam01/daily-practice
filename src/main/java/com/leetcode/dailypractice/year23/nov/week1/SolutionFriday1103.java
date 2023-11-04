@@ -59,14 +59,14 @@ import java.util.Stack;
  */
 
 public class SolutionFriday1103 {
-	//First Solution Mine
+	// First Solution Mine
 	public List<String> buildArray1(int[] target, int n) {
 		List<String> list = new ArrayList<>();
 		Stack<Integer> numStack = new Stack<>();
 		int targetCounter = 0;
 		for (int i = 0; i < n && targetCounter != target.length; i++) {
 			numStack.push(i + 1);
-			list.add("Push");			
+			list.add("Push");
 			if (numStack.peek() == target[targetCounter]) {
 				targetCounter++;
 			} else {
@@ -77,14 +77,15 @@ public class SolutionFriday1103 {
 		}
 		return list;
 	}
-	//Best Solution
+
+	// Best Solution
 	public List<String> buildArray(int[] target, int n) {
 		List<String> list = new LinkedList<>();
-		int temp; 
+		int temp;
 		int targetCounter = 0;
 		for (int i = 0; i < n && targetCounter != target.length; i++) {
 			temp = (i + 1);
-			list.add("Push");			
+			list.add("Push");
 			if (temp == target[targetCounter]) {
 				targetCounter++;
 			} else {
@@ -95,13 +96,36 @@ public class SolutionFriday1103 {
 		return list;
 	}
 
+	// Best Solution Online
+	public static List<String> buildArray2(int[] target, int n) {
+		List<String> result = new ArrayList<>();
+		int current = 1; // The current number to be pushed.
+
+		for (int i = 0; i < target.length; i++) {
+			while (current < target[i]) {
+				// While the current number is less than the target number,
+				// push the current number and generate the "Push" operation.
+				result.add("Push");
+				result.add("Pop"); // After pushing, immediately pop.
+				current++;
+			}
+
+			// The current number matches the target number, so push it.
+			result.add("Push");
+
+			current++; // Move to the next number to be pushed.
+		}
+
+		return result;
+	}
+
 	public static void main(String[] args) {
 
-		(new SolutionFriday1103().buildArray(new int[] { 1,3 }, 3)).forEach(System.out::print);
+		(new SolutionFriday1103().buildArray(new int[] { 1, 3 }, 3)).forEach(System.out::print);
 		System.out.println("");
-		(new SolutionFriday1103().buildArray(new int[] { 1,2,3 }, 3)).forEach(System.out::print);
+		(new SolutionFriday1103().buildArray(new int[] { 1, 2, 3 }, 3)).forEach(System.out::print);
 		System.out.println("");
-		(new SolutionFriday1103().buildArray(new int[] { 1,2 }, 4)).forEach(System.out::print);
+		(new SolutionFriday1103().buildArray(new int[] { 1, 2 }, 4)).forEach(System.out::print);
 
 	}
 }
