@@ -78,7 +78,7 @@ public class SolutionFriday1103 {
 		return list;
 	}
 
-	// Best Solution
+	// Best Solution Mine
 	public List<String> buildArray(int[] target, int n) {
 		List<String> list = new LinkedList<>();
 		int temp;
@@ -118,7 +118,29 @@ public class SolutionFriday1103 {
 
 		return result;
 	}
+	//Best Solution2
+	public List<String> buildArray3(int[] target, int n) {
+        List<String> operations = new ArrayList<>();
+        int targetIndex = 0; // Pointer for target array
+        int currentNumber = 1; // Pointer for numbers 1 to n
 
+        while (targetIndex < target.length) {
+            if (target[targetIndex] == currentNumber) {
+                // If the current number in the target array matches the current number 1 to n
+                // Push "Push" operation and move both pointers
+                operations.add("Push");
+                targetIndex++;
+            } else {
+                // If the numbers don't match, push "Push" followed by "Pop" operation
+                // and only move the current number pointer
+                operations.add("Push");
+                operations.add("Pop");
+            }
+            currentNumber++;
+        }
+
+        return operations;
+    }
 	public static void main(String[] args) {
 
 		(new SolutionFriday1103().buildArray(new int[] { 1, 3 }, 3)).forEach(System.out::print);
