@@ -46,13 +46,14 @@ import java.util.function.IntConsumer;
  */
 
 public class SolutionMonday1106 {
-	//Mine Solution
+	// Mine Solution
 	boolean[] seats;
 	int nextSeat;
 
 	public SolutionMonday1106(int n) {
 		seats = new boolean[n];
 	}
+
 	public int reserve() {
 		seats[nextSeat++] = true;
 		int res = nextSeat;
@@ -66,13 +67,29 @@ public class SolutionMonday1106 {
 	}
 
 	public void unreserve(int seatNumber) {
-		seats[seatNumber-1] = false;
+		seats[seatNumber - 1] = false;
 		if (seatNumber <= nextSeat) {
-			nextSeat = seatNumber-1;
+			nextSeat = seatNumber - 1;
 		}
 	}
 
 	public static void main(String[] args) {
+		char[] a = new char[4];
+		int addr = 0x0806d3b0;
+		a[0] = (char) (addr & 0xff);
+		a[1] = (char) ((addr & 0xff00) >> 8);
+		a[2] = (char) ((addr & 0xff0000) >> 16);
+		a[3] = (char) ((addr) >> 24);
+
+		System.out.println(Integer.toBinaryString(addr));
+		System.out.println(addr & 0xff);
+		
+		
+		System.out.println(a[0]);
+		System.out.println(a[1]);
+		System.out.println(a[2]);
+		System.out.println(a[3]);
+
 		IntConsumer cons = System.out::println;
 		SolutionMonday1106 obj = new SolutionMonday1106(2);
 		cons.accept(obj.reserve());
@@ -86,7 +103,7 @@ public class SolutionMonday1106 {
 		obj.unreserve(2);
 		cons.accept(obj.reserve());
 	}
-	
+
 	public static void main1(String[] args) {
 		IntConsumer cons = System.out::println;
 		SolutionMonday1106 obj = new SolutionMonday1106(5);
