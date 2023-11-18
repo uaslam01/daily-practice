@@ -35,6 +35,18 @@ import java.util.function.Consumer;
  * n == nums.length 2 <= n <= 105 n is even. 1 <= nums[i] <= 105
  */
 public class SolutionFriday1117 {
+	//Mine Solution
+	public int minPairSum1(int[] nums) {
+		Arrays.sort(nums);
+		int sum=0;
+		for(int i=0;i<nums.length/2;i++) {
+			if(sum<nums[i]+nums[nums.length-1-i]) {
+				sum= nums[i]+nums[nums.length-1-i];
+			}
+		}
+		return sum;
+	}
+	//Best Solution
 	public int minPairSum(int[] nums) {
 		Arrays.sort(nums);
 		int sum=0;

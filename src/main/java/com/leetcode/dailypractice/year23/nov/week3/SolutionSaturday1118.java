@@ -84,7 +84,6 @@ public class SolutionSaturday1118 {
 
         return maxFrequency;
     }
-}
 	public static void main(String[] args) {
 
 		Consumer cons = System.out::println;
