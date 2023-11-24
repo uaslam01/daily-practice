@@ -1,5 +1,6 @@
 package com.leetcode.dailypractice.year23.nov.week4;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 /**
@@ -41,9 +42,22 @@ import java.util.function.Consumer;
  */
 public class SolutionFriday1124 {
 	//Mine
-    public int maxCoins(int[] piles) {
+    public int maxCoins1(int[] piles) {
         int max=0;
         return max;
+    }
+    //Best Solution
+    class Solution {
+        public int maxCoins(int[] piles) {
+            Arrays.sort(piles);
+            int res = 0;
+
+            for (int i = piles.length / 3; i < piles.length; i += 2) {
+                res += piles[i];
+            }
+
+            return res;        
+        }
     }
     public static void main(String[] args) {
 		Consumer cons = System.out::println;
