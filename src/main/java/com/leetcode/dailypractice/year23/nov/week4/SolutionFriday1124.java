@@ -47,18 +47,17 @@ public class SolutionFriday1124 {
         return max;
     }
     //Best Solution
-    class Solution {
-        public int maxCoins(int[] piles) {
-            Arrays.sort(piles);
-            int res = 0;
+    public int maxCoins(int[] piles) {
+        Arrays.sort(piles);
+        int res = 0;
 
-            for (int i = piles.length / 3; i < piles.length; i += 2) {
-                res += piles[i];
-            }
-
-            return res;        
+        for (int i = piles.length / 3; i < piles.length; i += 2) {
+            res += piles[i];
         }
+
+        return res;        
     }
+
     public static void main(String[] args) {
 		Consumer cons = System.out::println;
 		var obj = new SolutionFriday1124();
