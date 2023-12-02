@@ -103,7 +103,7 @@ public class SolutionSaturday1202 {
 
     public static void main(String[] args) {
         Consumer cons = System.out::println;
-        var obj = new test();
+        var obj = new SolutionSaturday1202();
         cons.accept(obj.countCharacters(new String[]{"cat", "bt", "hat", "tree"}, "atach"));
         cons.accept(obj.countCharacters(new String[]{"hello", "world", "leetcode"}, "welldonehoneyr"));
     }
