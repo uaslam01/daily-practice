@@ -39,42 +39,75 @@ import java.util.function.Consumer;
  * 1. Accepted 89.9K Submissions 132.3K Acceptance Rate 67.9%
  */
 public class SolutionWednesday1213 {
-	 public int numSpecial(int[][] mat) {
-        int count=0;
-        for(int i=0;i<mat.length;i++){
-        	boolean isHavingOne = false;
-        	int colInd = -1;
-            for(int j=0;j<mat[i].length;j++) {
-            	if(isHavingOne && mat[i][j]==1) {
-            		colInd = -1;
-            		break;
-            	}
-            	if(mat[i][j]!=0 && !isHavingOne) {
-            		isHavingOne = true;
-            		colInd = j;
-            	}
-            }
-            if(colInd!=-1) {
-            	if(checkColumnAsZeros(mat, colInd)) {
-            		count++;
-            	}
-            }
-            
-        }
-        return count;
-    }
-    boolean checkColumnAsZeros(int[][] mat, int colIndex){
-    	boolean isHavingOne = false;
-        for(int i=0;i<mat.length;i++){
-        	if(isHavingOne && mat[i][colIndex]==1) {
-        		return false;
-        	}
-        	if(mat[i][colIndex]!=0 && !isHavingOne) {
-        		isHavingOne = true;
-        	}
-        }
-        return true;
-    }
+	//Mine
+	public int numSpecial1(int[][] mat) {
+		int count=0;
+		for(int i=0;i<mat.length;i++){
+			boolean isHavingOne = false;
+			int colInd = -1;
+			for(int j=0;j<mat[i].length;j++) {
+				if(isHavingOne && mat[i][j]==1) {
+					colInd = -1;
+					break;
+				}
+				if(mat[i][j]!=0 && !isHavingOne) {
+					isHavingOne = true;
+					colInd = j;
+				}
+			}
+			if(colInd!=-1 && (checkColumnAsZeros(mat, colInd))) {
+				count++;    	
+			}
+		}
+		return count;
+	}
+	boolean checkColumnAsZeros(int[][] mat, int colIndex){
+		boolean isHavingOne = false;
+		for(int i=0;i<mat.length;i++){
+			if(isHavingOne && mat[i][colIndex]==1) {
+				return false;
+			}
+			if(mat[i][colIndex]!=0 && !isHavingOne) {
+				isHavingOne = true;
+			}
+		}
+		return true;
+	}
+	//Best Solution
+	public int numSpecial(int[][] mat) {
+
+		int specials = 0;
+
+		for (int i = 0; i < mat.length; i++) {
+			int index = checkRow(mat, i);
+			if (index >= 0 && checkColumn(mat, i, index))
+				specials++;
+		}
+
+		return specials;
+	}
+
+	private int checkRow(int[][] mat, int i) {
+		int index = -1;
+		for (int j = 0; j < mat[0].length; j++) {
+			if (mat[i][j] == 1) {
+				if (index >= 0)
+					return -1;
+				else
+					index = j;
+			}
+		}
+		return index;
+	}
+
+	private boolean checkColumn(int[][] mat, int i, int index) {
+		for (int j = 0; j < mat.length; j++) {
+			if (mat[j][index] == 1 && j != i)
+				return false;
+		}
+		return true;
+	}
+
 	public static void main(String[] args) {
 		Consumer cons = System.out::println;
 		var obj = new SolutionWednesday1213();
