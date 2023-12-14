@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  * 
  * Example 1:
  * 
- * <img src="special1.jpg" />
+ * <img src="special1.jpg"  width="80%" />
  * 
  * 
  * Input: mat = [[1,0,0],[0,0,1],[1,0,0]] 
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
  * column 2 are 0. 
  * Example 2:
  *
- * <img src="special-grid.jpg" />
+ * <img src="special-grid.jpg"  width="80%"/>
  * Input: mat = [[1,0,0],[0,1,0],[0,0,1]] 
  * 
  * Output: 3 Explanation: (0, 0), (1, 1)
