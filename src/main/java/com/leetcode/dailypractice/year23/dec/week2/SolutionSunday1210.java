@@ -33,18 +33,13 @@ import java.util.function.Consumer;
  * 70.5% Seen this question in a real interview before? 1/4 Yes No
  */
 public class SolutionSunday1210 {
-	//Mine
-    public int[][] transpose1(int[][] matrix) {
-        return null;
-       
-    }
-//    Best Solution
+//    Mine + Best Solution
 //    Time Complexity: O(m * n) where m and n are the number of rows and columns in the matrix.
 //    Space Complexity: O(m * n) for the transposed matrix.
     public int[][] transpose2(int[][] matrix) {
         int row=matrix.length;
         int col=matrix[0].length;
-        int arr[][]=new int[col][row];
+        int[][] arr=new int[col][row];
         for(int i=0;i<col;i++)
         {
             for(int j=0;j<row;j++)

@@ -1,5 +1,7 @@
 package com.leetcode.dailypractice.year23.dec.week2;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -9,7 +11,8 @@ import java.util.function.Consumer;
  * "https://leetcode.com/problems/element-appearing-more-than-25-in-sorted-array/">Problem-Link</a>
  * 
  * 
- * 1287. Element Appearing More Than 25% In Sorted Array Easy 1.6K 72 Companies
+ * 1287. Element Appearing More Than 25% In Sorted Array 
+ * Easy 1.6K 72 Companies
  * Given an integer array sorted in non-decreasing order, there is exactly one
  * integer in the array that occurs more than 25% of the time, return that
  * integer.
@@ -33,11 +36,23 @@ import java.util.function.Consumer;
 public class SolutionMonday1211 {
 	//Mine
     public int findSpecialInteger1(int[] arr) {
-        return 0;
+    	int len25Percent = (int) Math.ceil(arr.length/3.99);
+    	Map<Integer, Integer> map = new HashMap<>();
+    	for(int num: arr) {
+    		if(map.containsKey(num)) {
+    			int count = map.get(num)+1;
+    			if(count== len25Percent)
+    				return num;
+    			map.put(num, count);
+    			
+    		} else
+    			map.put(num, 1);
+    	}
+        return arr[0];
     }
 //    Best Solution
-//    Time complexity: O(n−quarter)O(n - quarter)O(n−quarter)
-//    Space complexity: O(1)O(1)O(1)
+//    Time complexity: O(n−quarter)
+//    Space complexity: O(1)
     public int findSpecialInteger2(int[] arr) {
         int n = arr.length;
         int quarter = n / 4;
@@ -51,11 +66,11 @@ public class SolutionMonday1211 {
         return -1;
     }
 //    Best Solution2
-//    Time complexity: O(clogn)O(c log n)O(clogn)
+//    Time complexity: O(clogn)
 //    n is length of input array
 //    c is number of candidates
 //    c = (n - qurater) / qurater
-//    Space complexity: O(1)O(1)O(1)
+//    Space complexity: O(1)
     public int findSpecialInteger(int[] arr) {
         int n = arr.length;
         int quarter = n / 4;
@@ -109,5 +124,7 @@ public class SolutionMonday1211 {
 		var obj = new SolutionMonday1211();
 		cons.accept(obj.findSpecialInteger(new int[] { 1,2,2,6,6,6,6,7,10}));
 		cons.accept(obj.findSpecialInteger(new int[] { 1,1}));
+		cons.accept(obj.findSpecialInteger(new int[] { 1,2,3,3}));
+
 	}
 }

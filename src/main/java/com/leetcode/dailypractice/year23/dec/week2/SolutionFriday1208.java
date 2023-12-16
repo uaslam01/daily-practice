@@ -4,7 +4,8 @@ import java.util.function.Consumer;
 
 /**
  * <pre>
- * <a href="https://leetcode.com/problems/construct-string-from-binary-tree/">Problem-Link</a>
+ * <a href=
+ * "https://leetcode.com/problems/construct-string-from-binary-tree/">Problem-Link</a>
  * 
  * <b>606. Construct String from Binary Tree Easy 3.1K 3.6K Companies</b>
  * 
@@ -23,10 +24,9 @@ import java.util.function.Consumer;
  * 
  * Input: root = [1,2,3,4] Output: "1(2(4))(3)" Explanation: Originally, it
  * needs to be "1(2(4)())(3()())", but you need to omit all the unnecessary
- * empty parenthesis pairs. And it will be "1(2(4))(3)" 
+ * empty parenthesis pairs. And it will be "1(2(4))(3)"
  * 
- * Example 2:
- * <img src="cons2-tree.jpg" width="80%" height= "40%"/>
+ * Example 2: <img src="cons2-tree.jpg" width="80%" height= "40%"/>
  * 
  * Input: root = [1,2,3,null,4] Output: "1(2()(4))(3)" Explanation: Almost the
  * same as the first example, except we cannot omit the first parenthesis pair
@@ -41,14 +41,35 @@ import java.util.function.Consumer;
  * question in a real interview before?
  * 1/4https://leetcode.com/problems/construct-string-from-binary-tree/
  */
-class SolutionFriday1208 {
+public class SolutionFriday1208 {
 	// Mine Solution
-	public String tree2str1(TreeNode root) {
-		return null;
+	public String tree2str(TreeNode root) {
+		StringBuilder strBuilder = new StringBuilder();
+		preOrderTraversal(root, strBuilder);
+		return strBuilder.toString();
+	}
+	public void preOrderTraversal(TreeNode root, StringBuilder str) {
+		if (root == null)
+			return;
+		str.append(root.val);
+		if (root.left == null) {
+			if(root.right!=null) {
+				str.append("()");
+			}
+		}else {
+			str.append("(");
+			preOrderTraversal(root.left, str);
+			str.append(")");
+		} if(root.right!=null) {
+			str.append("(");	
+			preOrderTraversal(root.right, str);
+			str.append(")");	
+		}
+
 	}
 
 	// Best Solution
-	public String tree2str(TreeNode root) {
+	public String tree2str2(TreeNode root) {
 		if (root == null) {
 			return "";
 		}

@@ -40,9 +40,24 @@ import java.util.function.Consumer;
  */
 public class SolutionSaturday1209 {
 	//Mine
-    public List<Integer> inorderTraversal1(TreeNode root) {
-        return null;
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if(root==null)
+        	return new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        inorderTraversal(root, list);
+        return list;
+        
     }
+    public void inorderTraversal(TreeNode root, List<Integer> list) {
+        if(root==null)
+        	return;
+        inorderTraversal(root.left, list);
+        list.add(root.val);
+        inorderTraversal(root.right, list);
+        
+    }
+    
+    
 //    Best Solution
 //    Time Complexity: O(n), where n is the number of nodes in the binary tree. We visit each node once.
 //    Space Complexity: O(h), where h is the height of the binary tree. The space is used for the recursive call stack, and in the worst case (skewed tree), it's O(n). In the average case (balanced tree), it's O(log n).
@@ -63,7 +78,7 @@ public class SolutionSaturday1209 {
 //    Time complexity: O(n)O(n)O(n)
 //    Space complexity: O(n)O(n)O(n)
 //    In the worst case, we have skewed tree.
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversal3(TreeNode root) {
         List<Integer> res = new ArrayList<>();
 
         inorder(root, res);
