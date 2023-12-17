@@ -4,9 +4,13 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 
 /**
- * https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/
- * 1662. Check If Two String Arrays are Equivalent Easy 2.6K 188 Companies Given
- * two string arrays word1 and word2, return true if the two arrays represent
+ * <pre>
+ * <a href="https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/">Problem-Link</a>
+ * 
+ * 
+ * 1662. Check If Two String Arrays are Equivalent 
+ * Easy 2.6K 188 Companies 
+ * Given two string arrays word1 and word2, return true if the two arrays represent
  * the same string, and false otherwise.
  * 
  * A string is represented by an array if the array elements concatenated in

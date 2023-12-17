@@ -5,7 +5,10 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
- * https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+ * <pre>
+ * <a href="https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/">Problem-Link</a>
+ * 
+ * 
  * 1160. Find Words That Can Be Formed by Characters
  * Easy
  * 1.9K
@@ -17,8 +20,6 @@ import java.util.function.Consumer;
  * <p>
  * Return the sum of lengths of all good strings in words.
  * <p>
- * <p>
- * <p>
  * Example 1:
  * <p>
  * Input: words = ["cat","bt","hat","tree"], chars = "atach"
@@ -29,7 +30,6 @@ import java.util.function.Consumer;
  * Input: words = ["hello","world","leetcode"], chars = "welldonehoneyr"
  * Output: 10
  * Explanation: The strings that can be formed are "hello" and "world" so the answer is 5 + 5 = 10.
- * <p>
  * <p>
  * Constraints:
  * <p>
@@ -45,7 +45,9 @@ import java.util.function.Consumer;
  */
 public class SolutionSaturday1202 {
     //Mine
-
+    public int countCharacters1(String[] words, String chars) {
+    	return 0;
+    }
     //Best Solution 1
     public int countCharacters2(String[] words, String chars) {
         Map<Character, Integer> ch = new HashMap<>();

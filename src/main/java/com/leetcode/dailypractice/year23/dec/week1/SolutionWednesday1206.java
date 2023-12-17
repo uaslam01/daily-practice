@@ -1,94 +1,70 @@
 package com.leetcode.dailypractice.year23.dec.week1;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 /**
- * https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/
- * 1662. Check If Two String Arrays are Equivalent Easy 2.6K 188 Companies Given
- * two string arrays word1 and word2, return true if the two arrays represent
- * the same string, and false otherwise.
+ * <pre>
+ * <a href=
+ * "https://leetcode.com/problems/calculate-money-in-leetcode-bank/">Problem-Link</a>
+ * 1716. Calculate Money in Leetcode Bank Easy 1.4K 46 Companies
  * 
- * A string is represented by an array if the array elements concatenated in
- * order forms the string.
+ * Hercy wants to save money for his first car. He puts money in the Leetcode
+ * bank every day.
+ * 
+ * He starts by putting in $1 on Monday, the first day. Every day from Tuesday
+ * to Sunday, he will put in $1 more than the day before. On every subsequent
+ * Monday, he will put in $1 more than the previous Monday. Given n, return the
+ * total amount of money he will have in the Leetcode bank at the end of the nth
+ * day.
  * 
  * 
  * 
  * Example 1:
  * 
- * Input: word1 = ["ab", "c"], word2 = ["a", "bc"] Output: true Explanation:
- * word1 represents string "ab" + "c" -> "abc" word2 represents string "a" +
- * "bc" -> "abc" The strings are the same, so return true. Example 2:
+ * Input: n = 4 Output: 10 Explanation: After the 4th day, the total is 1 + 2 +
+ * 3 + 4 = 10. Example 2:
  * 
- * Input: word1 = ["a", "cb"], word2 = ["ab", "c"] Output: false Example 3:
+ * Input: n = 10 Output: 37 Explanation: After the 10th day, the total is (1 + 2
+ * + 3 + 4 + 5 + 6 + 7) + (2 + 3 + 4) = 37. Notice that on the 2nd Monday, Hercy
+ * only puts in $2. Example 3:
  * 
- * Input: word1 = ["abc", "d", "defg"], word2 = ["abcddefg"] Output: true
+ * Input: n = 20 Output: 96 Explanation: After the 20th day, the total is (1 + 2
+ * + 3 + 4 + 5 + 6 + 7) + (2 + 3 + 4 + 5 + 6 + 7 + 8) + (3 + 4 + 5 + 6 + 7 + 8)
+ * = 96.
  * 
  * 
  * Constraints:
  * 
- * 1 <= word1.length, word2.length <= 103 1 <= word1[i].length, word2[i].length
- * <= 103 1 <= sum(word1[i].length), sum(word2[i].length) <= 103 word1[i] and
- * word2[i] consist of lowercase letters. Accepted 370.7K Submissions 438K
- * Acceptance Rate 84.6%
+ * 1 <= n <= 1000 Accepted 142.9K Submissions 183K Acceptance Rate 78.1%
  */
-public class SolutionFriday1201 {
-	//Mine
-    public boolean arrayStringsAreEqual1(String[] word1, String[] word2) {
-        StringBuilder s1 = new StringBuilder();
-        StringBuilder s2 = new StringBuilder();
-        Arrays.stream(word1).forEach(x->s1.append(x));
-        Arrays.stream(word2).forEach(x->s2.append(x));
-        return s1.toString().equals(s2.toString());
-    }
-    //Best Solution
-    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
-        int pointer1 = 0;  // Pointer for word1
-        int pointer2 = 0;  // Pointer for word2        
-        int idx1 = 0;      // Index for the current word in word1
-        int idx2 = 0;      // Index for the current word in word2
+public class SolutionWednesday1206 {
+	// Mine
+	public int totalMoney1(int n) {
+		return 0;
+	}
 
-        while (pointer1 < word1.length && pointer2 < word2.length) {
-            // Get the current characters from both words
-            char char1 = word1[pointer1].charAt(idx1);
-            char char2 = word2[pointer2].charAt(idx2);
+	// Best Solution
+	public int totalMoney(int n) {
+		int weeks = n / 7;
+		int days = n % 7;
+		int lowest = 28;
+		int highest = 28 + 7 * (weeks - 1);
+		int total = (lowest + highest) * weeks / 2;
 
-            // Compare characters
-            if (char1 != char2) {
-                return false;
-            }
+		int monday = weeks + 1;
+		for (int i = 0; i < days; i++) {
+			total += i + monday;
+		}
 
-            // Move to the next character in the current word
-            idx1++;
-            idx2++;
-
-            // Move to the next word if the end of the current word is reached
-            if (idx1 == word1[pointer1].length()) {
-                idx1 = 0;  // Move to the next word in word1
-                pointer1++;
-            }
-
-            if (idx2 == word2[pointer2].length()) {
-                idx2 = 0;  // Move to the next word in word2
-                pointer2++;
-            }
-        }
-
-        // Check if both pointers have reached the end of their respective arrays
-        return pointer1 == word1.length && pointer2 == word2.length;        
-    }
+		return total;
+	}
 
 	public static void main(String[] args) {
-		Integer num = new Integer(3);
-		String str = num.toString();
-		System.out.println(Integer.valueOf(str));
-		Integer num2 = Integer.valueOf(str);
-		System.out.println(num2);
 		Consumer cons = System.out::println;
-		var obj = new SolutionFriday1201();
-		cons.accept(obj.arrayStringsAreEqual(new String[] {"a","bc"}, new String[] {"abc"}));
-		cons.accept(obj.arrayStringsAreEqual(new String[] {"a", "cb"}, new String[] {"ab", "c"}));
-		cons.accept(obj.arrayStringsAreEqual(new String[] {"abc", "d", "defg"}, new String[] {"abcddefg"}));
+		var obj = new SolutionWednesday1206();
+		cons.accept(obj.totalMoney(4));
+		cons.accept(obj.totalMoney(10));
+		cons.accept(obj.totalMoney(20));
 
 	}
 }
