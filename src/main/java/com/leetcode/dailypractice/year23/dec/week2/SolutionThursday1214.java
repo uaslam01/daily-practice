@@ -27,7 +27,9 @@ import java.util.function.Consumer;
  * 
  * Example 1:
  * 
- * <img src="image-20221106171729-5.png" width="80%"/> Input: grid =
+ * <img src="image-20221106171729-5.png" width="80%"/> 
+ * 
+ * Input: grid =
  * [[0,1,1],[1,0,1],[0,0,1]] Output: [[0,0,4],[0,0,4],[-2,-2,2]] Explanation: -
  * diff[0][0] = onesRow0 + onesCol0 - zerosRow0 - zerosCol0 = 2 + 1 - 1 - 2 = 0
  * - diff[0][1] = onesRow0 + onesCol1 - zerosRow0 - zerosCol1 = 2 + 1 - 1 - 2 =
