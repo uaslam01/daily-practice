@@ -1,5 +1,5 @@
-package com.leetcode.dailypractice.year23.dec.week3;
+package com.leetcode.dailypractice.year23.dec.week4;
 
-public class SolutionTuesday1225{
+public class SolutionTuesday1226{
 
 }
