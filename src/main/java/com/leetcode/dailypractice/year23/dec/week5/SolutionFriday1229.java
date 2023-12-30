@@ -1,7 +1,7 @@
 package com.leetcode.dailypractice.year23.dec.week5;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 /**
  * <pre>
@@ -58,6 +58,7 @@ import java.util.function.Consumer;
  * a real interview before? 1/4
  */
 public class SolutionFriday1229 {
+	//Mine Solution
 	public int minDifficulty(int[] jobDifficulty, int d) {
 		if (d > jobDifficulty.length)
 			return -1;
@@ -103,7 +104,7 @@ public class SolutionFriday1229 {
 	}
 
 	public static void main(String[] args) {
-		Consumer<Integer> cons = System.out::println;
+		IntConsumer cons = System.out::println;
 		var obj = new SolutionFriday1229();
 		cons.accept(obj.minDifficulty(new int[] { 6, 5, 4, 3, 2, 1 }, 2));
 		cons.accept(obj.minDifficulty(new int[] { 9, 9, 9 }, 4));
