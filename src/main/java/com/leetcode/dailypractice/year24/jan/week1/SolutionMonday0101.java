@@ -1,4 +1,4 @@
-package com.leetcode.dailypractice.year23.nov.week1;
+package com.leetcode.dailypractice.year24.jan.week1;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * https://leetcode.com/problems/build-an-array-with-stack-operations/ Build an
- * Array With Stack Operations Medium 618 280 Companies You are given an integer
+ * <pre>
+ * <a href=
+ * "https://leetcode.com/problems/build-an-array-with-stack-operations/">Problem-Link</a>
+ *
+ * Build an Array With Stack Operations Medium 618 280 Companies You are given an integer
  * array target and an integer n.
  * 
  * You have an empty stack with the two following operations:
@@ -32,20 +35,23 @@ import java.util.Stack;
  * Example 1:
  * 
  * Input: target = [1,3], n = 3 Output: ["Push","Push","Pop","Push"]
+ * 
  * Explanation: Initially the stack s is empty. The last element is the top of
  * the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2
  * from the stream and push it to the stack. s = [1,2]. Pop the integer on the
  * top of the stack. s = [1]. Read 3 from the stream and push it to the stack. s
  * = [1,3]. Example 2:
  * 
- * Input: target = [1,2,3], n = 3 Output: ["Push","Push","Push"] Explanation:
- * Initially the stack s is empty. The last element is the top of the stack.
+ * Input: target = [1,2,3], n = 3 Output: ["Push","Push","Push"] 
+ * 
+ * Explanation: Initially the stack s is empty. The last element is the top of the stack.
  * Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the
  * stream and push it to the stack. s = [1,2]. Read 3 from the stream and push
  * it to the stack. s = [1,2,3]. Example 3:
  * 
- * Input: target = [1,2], n = 4 Output: ["Push","Push"] Explanation: Initially
- * the stack s is empty. The last element is the top of the stack. Read 1 from
+ * Input: target = [1,2], n = 4 Output: ["Push","Push"] 
+ * 
+ * Explanation: Initially the stack s is empty. The last element is the top of the stack. Read 1 from
  * the stream and push it to the stack. s = [1]. Read 2 from the stream and push
  * it to the stack. s = [1,2]. Since the stack (from the bottom to the top) is
  * equal to target, we stop the stack operations. The answers that read integer
@@ -143,11 +149,11 @@ public class SolutionMonday0101{
     }
 	public static void main(String[] args) {
 
-		(new SolutionFriday1103().buildArray(new int[] { 1, 3 }, 3)).forEach(System.out::print);
+		(new SolutionMonday0101().buildArray(new int[] { 1, 3 }, 3)).forEach(System.out::print);
 		System.out.println("");
-		(new SolutionFriday1103().buildArray(new int[] { 1, 2, 3 }, 3)).forEach(System.out::print);
+		(new SolutionMonday0101().buildArray(new int[] { 1, 2, 3 }, 3)).forEach(System.out::print);
 		System.out.println("");
-		(new SolutionFriday1103().buildArray(new int[] { 1, 2 }, 4)).forEach(System.out::print);
+		(new SolutionMonday0101().buildArray(new int[] { 1, 2 }, 4)).forEach(System.out::print);
 
 	}
 }
