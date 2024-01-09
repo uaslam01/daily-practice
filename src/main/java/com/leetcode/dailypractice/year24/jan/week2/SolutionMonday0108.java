@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.function.IntConsumer;
 
 /**
- * 938. Range Sum of BST Easy 6.4K 358 Companies Given the root node of a binary
- * search tree and two integers low and high, return the sum of values of all
- * nodes with a value in the inclusive range [low, high].
+ * <pre>
+ * <a href=
+ * "https://leetcode.com/problems/range-sum-of-bst/">Problem-Link</a>
+ * 938. Range Sum of BST Easy 6.4K 358 Companies
+ * 
+ * Given the root node of a binary search tree and two integers low and high,
+ * return the sum of values of all nodes with a value in the inclusive range
+ * [low, high].
  * 
  * 
  * 
@@ -32,57 +37,57 @@ import java.util.function.IntConsumer;
  * before? 1/4
  */
 public class SolutionMonday0108 {
-	//Mine Solution
-    public int rangeSumBST(TreeNode root, int low, int high) {
-    	List<Integer> sortedArr = new ArrayList<>();
+	// Mine Solution
+	public int rangeSumBST(TreeNode root, int low, int high) {
+		List<Integer> sortedArr = new ArrayList<>();
 		traverseBST(root, sortedArr);
-        int sum=0;
-        for(var num: sortedArr) {
-        	if(num>high)
-        		break;
-        	if(num>=low) {
-        		sum+=num;
-        	}
-        }
-        return sum;
-    }
-    
-    
-    private void traverseBST(TreeNode root, List<Integer> sortedArr) {
-		if(root==null) {
-			return;
+		int sum = 0;
+		for (var num : sortedArr) {
+			if (num > high)
+				break;
+			if (num >= low) {
+				sum += num;
+			}
 		}
-		if(root.left!= null)
-			traverseBST(root.left, sortedArr);
-		sortedArr.add(root.val);
-		if(root.right!= null)
-			traverseBST(root.right, sortedArr);    	
+		return sum;
 	}
 
-	//Best Solution
-    public int rangeSumBST1(TreeNode root, int low, int high) {
-        // Initialize the sum to 0
-        int sum = 0;
+	private void traverseBST(TreeNode root, List<Integer> sortedArr) {
+		if (root == null) {
+			return;
+		}
+		if (root.left != null)
+			traverseBST(root.left, sortedArr);
+		sortedArr.add(root.val);
+		if (root.right != null)
+			traverseBST(root.right, sortedArr);
+	}
 
-        // Check if the current node is null
-        if (root == null) {
-            // If it is, return 0
-            return 0;
-        }
+	// Best Solution
+	public int rangeSumBST1(TreeNode root, int low, int high) {
+		// Initialize the sum to 0
+		int sum = 0;
 
-        // Check if the value of the current node is within the range
-        if (root.val >= low && root.val <= high) {
-            // If it is, add it to the sum
-            sum += root.val;
-        }
+		// Check if the current node is null
+		if (root == null) {
+			// If it is, return 0
+			return 0;
+		}
 
-        // Recursively search the left and right subtrees for nodes in the range
-        sum += rangeSumBST(root.left, low, high);
-        sum += rangeSumBST(root.right, low, high);
+		// Check if the value of the current node is within the range
+		if (root.val >= low && root.val <= high) {
+			// If it is, add it to the sum
+			sum += root.val;
+		}
 
-        // Return the sum of the values of all nodes in the range
-        return sum;
-    }  
+		// Recursively search the left and right subtrees for nodes in the range
+		sum += rangeSumBST(root.left, low, high);
+		sum += rangeSumBST(root.right, low, high);
+
+		// Return the sum of the values of all nodes in the range
+		return sum;
+	}
+
 	// Definition for a binary tree node.
 	static class TreeNode {
 		int val;
@@ -102,6 +107,7 @@ public class SolutionMonday0108 {
 			this.right = right;
 		}
 	}
+
 	public static void main(String[] args) {
 		IntConsumer cons = System.out::println;
 		TreeNode temp = new TreeNode(10, new TreeNode(5), new TreeNode(15));
@@ -110,8 +116,8 @@ public class SolutionMonday0108 {
 		temp.right.right = new TreeNode(18);
 
 		var obj = new SolutionMonday0108();
-		cons.accept(obj.rangeSumBST(temp, 7,15));
-		temp.right.left =  new TreeNode(13);
+		cons.accept(obj.rangeSumBST(temp, 7, 15));
+		temp.right.left = new TreeNode(13);
 		temp.left.left.left = new TreeNode(1);
 		temp.left.right.left = new TreeNode(6);
 		cons.accept(obj.rangeSumBST(temp, 6, 10));

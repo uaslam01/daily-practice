@@ -10,8 +10,9 @@ import java.util.function.Consumer;
  * "https://leetcode.com/problems/convert-an-array-into-a-2d-array-with-conditions/">Problem-Link</a>
  *
  * 
- * avatar 2610. Convert an Array Into a 2D Array With Conditions Medium 1K 47
- * Companies
+ * 2610. Convert an Array Into a 2D Array With Conditions
+ * 
+ * Medium 1K 47 Companies
  * 
  * You are given an integer array nums. You need to create a 2D array from nums
  * satisfying the following conditions:
@@ -88,7 +89,6 @@ public class SolutionTuesday0102 {
 
 		return ans;
 	}
-	
 
 	public static void main(String[] args) {
 		Consumer<List<List<Integer>>> cons = i -> i.forEach(j -> {
