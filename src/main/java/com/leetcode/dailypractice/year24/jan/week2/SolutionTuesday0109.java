@@ -48,7 +48,7 @@ import java.util.function.Consumer;
  */
 public class SolutionTuesday0109 {
 
-	//Mine Solution
+	// Mine Solution
 	public boolean leafSimilar1(TreeNode root1, TreeNode root2) {
 		List<Integer> tree1 = new ArrayList<>();
 		List<Integer> tree2 = new ArrayList<>();
@@ -56,44 +56,43 @@ public class SolutionTuesday0109 {
 		traverseBST(root2, tree2);
 		return tree1.equals(tree2);
 	}
-	
+
 	private void traverseBST(TreeNode root, List<Integer> leafNodes) {
 		if (root == null) {
 			return;
 		}
 		traverseBST(root.left, leafNodes);
 		traverseBST(root.right, leafNodes);
-		if(root.left==null && root.right==null)
+		if (root.left == null && root.right == null)
 			leafNodes.add(root.val);
 	}
-	//Best 
-	 public boolean leafSimilar(TreeNode root1, TreeNode root2) {
-	        List<Integer> list1 = new ArrayList<>();
-	        List<Integer> list2 = new ArrayList<>();
 
-	        helper(list1, root1);
-	        helper(list2, root2);
+	// Best Solution
+	public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+		List<Integer> list1 = new ArrayList<>();
+		List<Integer> list2 = new ArrayList<>();
 
-	        if(list1.equals(list2))
-	            return true;
-	        else
-	            return false;        
-	    }
-	    private void helper(List<Integer>list , TreeNode root)
-	    {
-	        if(root == null)
-	            return;
-	        if(root.left == null && root.right==null)
-	        {
-	            list.add(root.val);
-	            return;
-	        }
-	        else
-	        {
-	            helper(list, root.left);
-	            helper(list, root.right);
-	        }
-	    }
+		helper(list1, root1);
+		helper(list2, root2);
+
+		if (list1.equals(list2))
+			return true;
+		else
+			return false;
+	}
+
+	private void helper(List<Integer> list, TreeNode root) {
+		if (root == null)
+			return;
+		if (root.left == null && root.right == null) {
+			list.add(root.val);
+			return;
+		} else {
+			helper(list, root.left);
+			helper(list, root.right);
+		}
+	}
+
 	// Definition for a binary tree node.
 	static class TreeNode {
 		int val;
