@@ -65,7 +65,7 @@ public class SolutionTuesday0116 {
 		Set<Integer> values;
 		List<Integer> valuesList;
 
-		public RandomizedSet() {
+		public RandomizedSet1() {
 			values = new HashSet<>();
 			valuesList = new ArrayList<>();
 		}
