@@ -1,8 +1,8 @@
 package com.leetcode.dailypractice.year24.jan.week1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.IntConsumer;
 
 /**
  * <pre>
@@ -90,7 +90,7 @@ public class SolutionThursday0104{
     }    
 
 	public static void main(String[] args) {
-		IntConsumer cons = i -> System.out::println;
+		IntConsumer cons = System.out::println;
 		var obj = new SolutionThursday0104();
 		cons.accept(obj.minOperations(new int[] { 1 }));
 

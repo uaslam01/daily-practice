@@ -1,8 +1,8 @@
 package com.leetcode.dailypractice.year24.jan.week1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.IntConsumer;
 
 /**
  * <pre>
@@ -53,7 +53,7 @@ Acceptance Rate
 Seen this question in a real interview before?
 1/4
  **/
-public class SolutionThursday0104{
+public class SolutionFriday0105{
 	// Mine Solution
 	
 	// Best Solution 1
@@ -90,8 +90,8 @@ public class SolutionThursday0104{
     }    
 
 	public static void main(String[] args) {
-		IntConsumer cons = i -> System.out::println;
-		var obj = new SolutionThursday0104();
+		IntConsumer cons = System.out::println;
+		var obj = new SolutionFriday0105();
 		cons.accept(obj.minOperations(new int[] { 1 }));
 
 
