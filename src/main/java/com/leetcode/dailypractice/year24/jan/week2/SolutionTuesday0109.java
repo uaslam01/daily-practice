@@ -29,15 +29,25 @@ import java.util.function.Consumer;
  * Example 1:
  * 
  * 
- * <img src="leaf-similar-1.jpg" width="80%"/> Input: root1 =
+ * <img src="leaf-similar-1.jpg" width="80%"/> 
+ * 
+ * 
+ * Input: root1 =
  * [3,5,1,6,2,9,8,null,null,7,4], root2 =
  * [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]
  * 
- * Output: true Example 2:
+ * Output: true 
  * 
  * 
- * <img src="leaf-similar-2.jpg" width="80%"/> Input: root1 = [1,2,3], root2 =
- * [1,3,2] Output: false
+ * Example 2:
+ * 
+ * 
+ * <img src="leaf-similar-2.jpg" width="80%"/> 
+ * 
+ * Input: root1 = [1,2,3], root2 =
+ * [1,3,2] 
+ * 
+ * Output: false
  * 
  * 
  * Constraints:
