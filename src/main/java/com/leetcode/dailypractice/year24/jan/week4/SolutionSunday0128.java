@@ -30,7 +30,7 @@ import java.util.Map;
  * 
  * Example 1:
  * 
- * <img src="mate1.jpg" width="40%" height="100%"/>
+ * <img src="mate1.jpg" width="70%" height="70%"/>
 
  * 
  * Input: matrix = [[0,1,0],[1,1,1],[0,1,0]], target = 0
