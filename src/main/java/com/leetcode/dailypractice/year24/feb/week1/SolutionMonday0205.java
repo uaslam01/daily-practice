@@ -1,5 +1,6 @@
 package com.leetcode.dailypractice.year24.feb.week1;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -50,8 +51,8 @@ import java.util.Set;
  * Submissions 2.6M Acceptance Rate 61.5%
  */
 public class SolutionMonday0205 {
-	//Mine Solution
-    public int firstUniqChar(String s) {
+	//Mine Solution as well as Best Solution 
+    public int firstUniqChar1(String s) {
     	Set<Character> repeatedChars = new HashSet<>();
         Map<Character, Integer> map = new LinkedHashMap<>();
         for(int i=0; i<s.length(); i++){
@@ -64,6 +65,23 @@ public class SolutionMonday0205 {
             }
         }
         return map.isEmpty()?-1:map.entrySet().iterator().next().getValue();
+    }
+    
+    //Best Solution 2
+    public int firstUniqChar(String s) {
+        HashMap<Character, Integer> mp = new HashMap<>();
+
+        for (char a : s.toCharArray()) {
+            mp.put(a, mp.getOrDefault(a, 0) + 1);
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            if (mp.get(s.charAt(i)) == 1) {
+                return i;
+            }
+        }
+
+        return -1;
     }
     
 	public static void main(String[] args) {
