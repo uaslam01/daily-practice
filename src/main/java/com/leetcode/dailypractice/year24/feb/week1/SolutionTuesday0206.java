@@ -122,6 +122,7 @@ public class SolutionTuesday0206 {
     }
     
     private List<List<String>> res;
+	//Best Solution 2
 
     public List<List<String>> groupAnagrams(String[] strs) {        
         return new AbstractList<List<String>>() {
