@@ -39,7 +39,8 @@ import java.util.function.Consumer;
  * 
  * Example 1:
  * 
- * 
+ * <img src="q4.gif" width="80%"/>
+ 
  * 
  * Input: heights = [4,2,7,6,9,14,12], bricks = 5, ladders = 1
  * 
