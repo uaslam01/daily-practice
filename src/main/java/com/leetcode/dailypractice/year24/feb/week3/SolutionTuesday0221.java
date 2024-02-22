@@ -57,7 +57,7 @@ Acceptance Rate
 45.4%*/
 public class SolutionTuesday0221 {
 	//Mine Solution
-    public int rangeBitwiseAnd(int left, int right) {
+    public int rangeBitwiseAnd1(int left, int right) {
     	if(left==0)
     		return 0;
     	if(left==right)
@@ -72,6 +72,16 @@ public class SolutionTuesday0221 {
     	}
     	
         return res&right;
+    }
+    //Best Solution
+    public int rangeBitwiseAnd(int left, int right) {
+        int count=0;
+        while(left!=right){
+            left>>=1;
+            right>>=1;
+            count++;
+        }
+        return left<<=count;
     }
 	public static void main(String[] args) {
 		Consumer cons = System.out::println;
