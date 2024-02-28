@@ -45,7 +45,8 @@ import java.util.function.IntConsumer;
  */
 
 public class SolutionWednesday0228 {
-	public int findBottomLeftValue(TreeNode root) {
+	// Mine Solution/Time limit Exceeds
+	public int findBottomLeftValue1(TreeNode root) {
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.add(root);
 		int level = 0;
@@ -56,21 +57,21 @@ public class SolutionWednesday0228 {
 		while (!queue.isEmpty()) {
 			noOfNodes--;
 			TreeNode temp = queue.poll();
-			if(temp==null) {
+			if (temp == null) {
 				queue.add(null);
 				queue.add(null);
-				nullCount+=2;
+				nullCount += 2;
 			} else {
-				if(temp.left==null)
+				if (temp.left == null)
 					nullCount++;
-				else if(!findLeftMost) {
+				else if (!findLeftMost) {
 					leftMost = temp.left.val;
 					findLeftMost = true;
 				}
-					
-				if(temp.right==null)
+
+				if (temp.right == null)
 					nullCount++;
-				else if(!findLeftMost) {
+				else if (!findLeftMost) {
 					leftMost = temp.right.val;
 					findLeftMost = true;
 				}
@@ -79,7 +80,7 @@ public class SolutionWednesday0228 {
 
 			}
 			if (noOfNodes == 0) {
-				if(nullCount==Math.pow(2, level+1)) {
+				if (nullCount == Math.pow(2, level + 1)) {
 					break;
 				}
 				level++;
@@ -90,6 +91,47 @@ public class SolutionWednesday0228 {
 		}
 
 		return leftMost;
+	}
+
+	// Mine Soution 2
+	public int findBottomLeftValue2(TreeNode root) {
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+		int leftMost = root.val;
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+			for (int i = 0; i < size; i++) {
+				TreeNode temp = queue.poll();
+				if (i == 0)
+					leftMost = temp.val;
+				if (temp.left != null)
+					queue.add(temp.left);
+				if (temp.right != null)
+					queue.add(temp.right);
+			}
+		}
+
+		return leftMost;
+
+	}
+
+	int leftmost = 0;
+	int leftmostrow = -1;
+
+	void visit(TreeNode root, int depth) {
+		if (root == null)
+			return;
+		if (depth > leftmostrow) {
+			leftmost = root.val;
+			leftmostrow = depth;
+		}
+		visit(root.left, depth + 1);
+		visit(root.right, depth + 1);
+	}
+	//Best Solution
+	public int findBottomLeftValue(TreeNode root) {
+		visit(root, 0);
+		return leftmost;
 	}
 
 	public static void main(String[] args) {
