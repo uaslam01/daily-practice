@@ -1,6 +1,6 @@
 package com.leetcode.dailypractice.year24.feb.week4;
 
-import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 /**
  * <pre>
@@ -24,7 +24,7 @@ import java.util.function.Consumer;
  * 
  * Example 1:
  * 
- * <img src="diamtree.jpg" width="80%"/> 
+ * <img src="diamtree.jpg" width="80%"/>
  * 
  * Input: root = [1,2,3,4,5]
  * 
@@ -68,73 +68,101 @@ public class SolutionTuesday0227 {
 			this.right = right;
 		}
 	}
-	static int height;
+
+	static int diameter;
+
 	public int getHeightOfTree(TreeNode root, int initialHeight) {
-		if(root==null)
+		if (root == null)
 			return initialHeight;
-		int currentHeight = initialHeight;
-		if(root.left!=null || root.right!=null)
-			initialHeight++;
-		int leftHeight = getHeightOfTree(root.left, initialHeight);
-		int rightHeight = getHeightOfTree(root.right, initialHeight);
-		int currentDiff = -2*currentHeight+leftHeight+rightHeight;
-		if(height<currentDiff)
-			height = currentDiff;
+		int leftHeight = 0;
+		int rightHeight = 0;
+		if (root.left == null && root.right == null)
+			return 0;
+		if (root.left != null)
+			leftHeight = 1;
+		if (root.right != null)
+			rightHeight = 1;
+		leftHeight += getHeightOfTree(root.left, 0) - initialHeight;
+		rightHeight += getHeightOfTree(root.right, 0) - initialHeight;
+		int sum = leftHeight + rightHeight;
+		if (diameter < sum)
+			diameter = sum;
 		return Math.max(leftHeight, rightHeight);
 	}
 
-
 	// Mine Solution
-	public int diameterOfBinaryTree1(TreeNode root) {
-		return getHeightOfTree(root, 0);
+	public int diameterOfBinaryTree(TreeNode root) {
+		diameter = 0;
+		getHeightOfTree(root, 0);
+		return diameter;
 	}
-	//Best Solution
-    public class DiameterData {
-        int diameter;
-        int height;
-        DiameterData(int diameter, int height) {
-            this.diameter = diameter;
-            this.height = height;
-        }
-    }
 
-    public DiameterData calculateDiameterAndHeight(TreeNode root) {
-        if (root == null) {
-            return new DiameterData(0, 0);
-        }
+	//Best Solution 1
+	public int getHeightOfTree(TreeNode root) {
+		if (root == null)
+			return 0;
+		int leftHeight = 0;
+		int rightHeight = 0;
+		leftHeight += getHeightOfTree(root.left);
+		rightHeight += getHeightOfTree(root.right);
+		int sum = leftHeight + rightHeight;
+		if (diameter < sum)
+			diameter = sum;
+		return Math.max(leftHeight, rightHeight)+1;
+	}
 
-        DiameterData leftData = calculateDiameterAndHeight(root.left);
-        DiameterData rightData = calculateDiameterAndHeight(root.right);
-
-        int currentDiameter = Math.max(leftData.height + rightData.height, 
-                                        Math.max(leftData.diameter, rightData.diameter));
-        int currentHeight = Math.max(leftData.height, rightData.height) + 1;
-
-        return new DiameterData(currentDiameter, currentHeight);
-    }
-
-    public int diameterOfBinaryTree(TreeNode root) {
-        // Calculate diameter and height using helper function
-        DiameterData data = calculateDiameterAndHeight(root);
-        
-        // Return the diameter (maximum path length)
-        return data.diameter;
-    }
 	
-    public static void main(String[] args) {
-		Consumer<Integer> cons = System.out::println;
+	// Best Solution 2
+	public class DiameterData {
+		int diameter;
+		int height;
+
+		DiameterData(int diameter, int height) {
+			this.diameter = diameter;
+			this.height = height;
+		}
+	}
+
+	public DiameterData calculateDiameterAndHeight(TreeNode root) {
+		if (root == null) {
+			return new DiameterData(0, 0);
+		}
+
+		DiameterData leftData = calculateDiameterAndHeight(root.left);
+		DiameterData rightData = calculateDiameterAndHeight(root.right);
+
+		int currentDiameter = Math.max(leftData.height + rightData.height,
+				Math.max(leftData.diameter, rightData.diameter));
+		int currentHeight = Math.max(leftData.height, rightData.height) + 1;
+
+		return new DiameterData(currentDiameter, currentHeight);
+	}
+
+	public int diameterOfBinaryTree1(TreeNode root) {
+		// Calculate diameter and height using helper function
+		DiameterData data = calculateDiameterAndHeight(root);
+
+		// Return the diameter (maximum path length)
+		return data.diameter;
+	}
+
+	public static void main(String[] args) {
+		IntConsumer cons = System.out::println;
 		var obj = new SolutionTuesday0227();
 
 		TreeNode temp = new TreeNode(1, null, new TreeNode(3));
 		temp.left = new TreeNode(2, new TreeNode(4), new TreeNode(5));
 		cons.accept(obj.diameterOfBinaryTree(temp));
-		
+
 		temp = new TreeNode(1, new TreeNode(2), null);
 		cons.accept(obj.diameterOfBinaryTree(temp));
 		temp = new TreeNode(1, null, new TreeNode(3));
 
 		temp.left = new TreeNode(2, new TreeNode(4), new TreeNode(5));
-		temp.left.right.left = new TreeNode(6);
+		temp.left.right.left =  new TreeNode(6, new TreeNode(7), new TreeNode(8));
+		temp.left.right.right = new TreeNode(9, new TreeNode(10), null);
+		temp.left.right.left.right.left = new TreeNode(11);
+		temp.left.right.right.left.left = new TreeNode(12);
 		cons.accept(obj.diameterOfBinaryTree(temp));
 
 	}
