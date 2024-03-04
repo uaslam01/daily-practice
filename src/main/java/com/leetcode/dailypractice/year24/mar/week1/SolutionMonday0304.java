@@ -1,6 +1,7 @@
 package com.leetcode.dailypractice.year24.mar.week1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -120,7 +121,7 @@ public class SolutionMonday0304 {
 	}
 
 	// Best Solution
-	public int bagOfTokensScore(int[] tokens, int power) {
+	public int bagOfTokensScore2(int[] tokens, int power) {
 		int score = 0, last = tokens.length, ans = 0, i = 0;
 		quicksort(tokens, 0, last - 1);
 		while (i < last && (power >= tokens[i] || score > 0)) {
@@ -161,6 +162,33 @@ public class SolutionMonday0304 {
 		arr[right] = temp;
 		return i + 1;
 	}
+	
+	//Best Solution 2
+	public int bagOfTokensScore(int[] tokens, int power) {
+
+
+        Arrays.sort(tokens);
+        int i=0;
+        int k=tokens.length-1;
+        int score=0;
+
+      while (i <= k) {
+          
+            if (tokens[i] <= power) {
+                power -= tokens[i];
+                score++;
+                i++;
+            
+            } else if (score > 0 && i != k) {
+                power += tokens[k];
+                score--;
+                k--;
+            } else {
+                break;
+            }
+        }  
+        return score;
+    }
 
 	public static void main(String[] args) {
 		Consumer cons = System.out::println;
