@@ -67,10 +67,11 @@ import java.util.function.IntConsumer;
  * 1/4 Yes No Accepted 56.4K Submissions 108.3K Acceptance Rate 52.1%
  */
 public class SolutionTueday0305 {
-	public int minimumLength(String s) {
+	// Mine Solution Best Solution
+	public int minimumLength2(String s) {
 		int start = 0;
 		int end = s.length() - 1;
-		if(start==end) {
+		if (start == end) {
 			return 1;
 		}
 		char[] charArr = s.toCharArray();
@@ -84,9 +85,56 @@ public class SolutionTueday0305 {
 				end--;
 			}
 		}
-		return end == start && charArr[start-1]==charArr[start] ? 0 : end - start + 1;
+		return end == start && charArr[start - 1] == charArr[start] ? 0 : end - start + 1;
 	}
-	
+
+	// I was thinking to first remove the duplicates and check the palindrome but
+	// it will have some other issues like whether it conatains char count 1 or more
+	public int minimumLength1(String s) {
+		int start = 0;
+		int len = s.length();
+		int end = s.length() - 1;
+		if (start == end) {
+			return 1;
+		}
+		char[] charArr = s.toCharArray();
+		StringBuilder strBuilder = new StringBuilder();
+		char lastChar = charArr[0];
+		strBuilder.append(lastChar);
+		for (int i = 1; i < len; i++) {
+			if (charArr[i] != lastChar) {
+				lastChar = charArr[i];
+				strBuilder.append(lastChar);
+			}
+		}
+		return end == start && charArr[start - 1] == charArr[start] ? 0 : end - start + 1;
+	}
+
+	// Best Solution 2
+	public int minimumLength(String s) {
+
+		int left = 0;
+		int right = s.length() - 1;
+
+		while (left < right) {
+
+			if (s.charAt(left) == s.charAt(right)) {
+
+				while (left < right && s.charAt(left) == s.charAt(left + 1))
+					left++;
+
+				while (left < right && s.charAt(right) == s.charAt(right - 1))
+					right--;
+			} else {
+				break;
+			}
+
+			left++;
+			right--;
+		}
+
+		return Math.max(0, right - left + 1);
+	}
 
 	public static void main(String[] args) {
 		IntConsumer cons = System.out::println;
