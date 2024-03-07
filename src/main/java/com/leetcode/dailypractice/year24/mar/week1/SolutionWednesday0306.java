@@ -74,38 +74,40 @@ public class SolutionWednesday0306 {
 			next = null;
 		}
 	}
-	//Mine Solution / Best Solution
+
+	// Mine Solution / Best Solution
 	public boolean hasCycle1(ListNode head) {
 		ListNode slow = head;
 		ListNode fast = head;
 		while (slow != null && fast != null) {
 			slow = slow.next;
-            if(fast.next!=null)
-    			fast = fast.next.next;
-            else
-                return false;
+			if (fast.next != null)
+				fast = fast.next.next;
+			else
+				return false;
 			if (slow == fast)
 				return true;
 		}
 		return false;
 	}
-	
-	//Best Solution 2
-	 public boolean hasCycle(ListNode head) {
-	        ListNode slow = head;
-	        ListNode fast = head;
 
-	        while(fast != null && fast.next != null) {
-	            slow = slow.next;
-	            fast = fast.next.next;
+	// Best Solution 2
+	public boolean hasCycle(ListNode head) {
+		ListNode slow = head;
+		ListNode fast = head;
 
-	            if(slow == fast) {
-	                return  true;
-	            }
-	        }
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
 
-	        return false;
-	    }
+			if (slow == fast) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static void main(String[] arg) {
 		Consumer cons = System.out::println;
 		var obj = new SolutionWednesday0306();
@@ -124,6 +126,5 @@ public class SolutionWednesday0306 {
 		cons.accept(obj.hasCycle(new ListNode(1)));
 
 	}
-	
-	
+
 }
