@@ -1,5 +1,6 @@
 package com.leetcode.dailypractice.year24.mar.week2;
 
+import java.util.Arrays;
 import java.util.function.IntConsumer;
 
 /**
@@ -68,7 +69,7 @@ public class SolutionSaturday0309 {
     	return -1;
     }
     //Best Solution
-    public int getCommon(int[] nums1, int[] nums2) {
+    public int getCommon2(int[] nums1, int[] nums2) {
         int i=0, j=0;
         int length1=nums1.length;
         int length2= nums2.length;
@@ -82,6 +83,16 @@ public class SolutionSaturday0309 {
             else if (nums1[i] > nums2[j]) j++;
             else i++;
         } return -1;
+    }
+    public int getCommon(int[] nums1, int[] nums2) {
+        for (int i = 0; i < nums1.length; i++) {
+            System.out.println(nums1[i]);
+            if (Arrays.binarySearch(nums2, nums1[i]) >= 0) {
+                return nums1[i];
+            }
+        }
+        return -1;
+        
     }
     public static void main(String[] args) {
 		IntConsumer cons = System.out::println;
