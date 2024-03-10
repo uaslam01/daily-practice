@@ -107,7 +107,8 @@ public class SolutionSunday0310 {
 		}
 		return arr;
 	}
-	//Best Solution
+
+	// Best Solution
 	public int[] inters5ection3(int[] nums1, int[] nums2) {
 		var s1 = new HashSet<Integer>(nums1.length);
 		for (var i : nums1)
@@ -139,35 +140,37 @@ public class SolutionSunday0310 {
 		}
 		var res = new int[resCount];
 
-		for (int i = 0; i < 1001 && resCount>=0; ++i) {
+		for (int i = 0; i < 1001 && resCount >= 0; ++i) {
 			if (arr2[i])
 				res[--resCount] = i;
 		}
 		return res;
 	}
-	//Best Best Solution
-    public int[] intersection(int[] nums1, int[] nums2) {
-        final int N = 1001;
-        var set = new int [N];
-        for (var i : nums1) set[i] = 1;
-        int resCount = 0;
-        for (var i : nums2) {
-            if (set[i] == 1) {
-                set[i] = 2;
-                ++resCount;
-            }
-        }
-        var res = new int[resCount];
-        var i = 0;
-        var nums = nums2.length > nums1.length ? nums1 : nums2;
-        for (var v : nums) {
-            if (set[v] == 2) {
-                res[i++] = v;
-                set[v] = 1;
-            }
-        }
-        return res;
-    }
+
+	// Best Best Solution
+	public int[] intersection(int[] nums1, int[] nums2) {
+		final int N = 1001;
+		var set = new int[N];
+		for (var i : nums1)
+			set[i] = 1;
+		int resCount = 0;
+		for (var i : nums2) {
+			if (set[i] == 1) {
+				set[i] = 2;
+				++resCount;
+			}
+		}
+		var res = new int[resCount];
+		var i = 0;
+		var nums = nums2.length > nums1.length ? nums1 : nums2;
+		for (var v : nums) {
+			if (set[v] == 2) {
+				res[i++] = v;
+				set[v] = 1;
+			}
+		}
+		return res;
+	}
 
 	public static void main(String[] args) {
 		IntConsumer cons = System.out::print;
