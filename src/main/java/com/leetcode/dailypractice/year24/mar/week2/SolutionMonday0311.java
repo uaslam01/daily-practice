@@ -2,8 +2,7 @@ package com.leetcode.dailypractice.year24.mar.week2;
 
 /**
  * <pre>
- * <a href=
- * "https://leetcode.com/problems/custom-sort-string/">Problem-Link</a>
+ * <a href= "https://leetcode.com/problems/custom-sort-string/">Problem-Link</a>
  * 
  * 791. Custom Sort String
  * 
@@ -60,48 +59,45 @@ package com.leetcode.dailypractice.year24.mar.week2;
  * Submissions 465.4K Acceptance Rate 70.2%
  */
 public class SolutionMonday0311 {
-	//Mine Solution
-    public String customSortString(String order, String s) {
-//    	int orderLen = order.length();
-//    	char[] chOrder = new char[orderLen];
-//    	for(int i=0; i<orderLen; i++) {
-//    		chOrder[i]=order.charAt(i);
-//    	}
-    	int[] charCount = new int[26];
-    	for(char ch: s.toCharArray()) {
-    		charCount[ch-'a']++;
-    	}
-    	StringBuilder result = new StringBuilder();
-    	for(int i=0; i<order.length(); i++) {
-    		if(charCount[order.charAt(i)-'a']>0) {
-    			result.append(getRepeatedChar(order.charAt(i), charCount[order.charAt(i)-'a']));
-    			charCount[order.charAt(i)-'a'] = 0;
-    		}
-    	}
-    	for(int i=0;i<26;i++) {
-    		if(charCount[i]>0) {
-    			result.append(getRepeatedChar((char) ('a'+i),charCount[i]));
-    		}
-    	}
-    	return result.toString();
-    }
-    String getRepeatedChar(char ch, int count) {
-    	StringBuilder res = new StringBuilder();
-    	for(int i=0;i<count;i++) {
-    		res.append(ch);
-    	}
-    	return res.toString();
-    }
+	// Mine Solution / Best Solution
+	public String customSortString(String order, String s) {
+		int[] charCount = new int[26];
+		for (char ch : s.toCharArray()) {
+			charCount[ch - 'a']++;
+		}
+		StringBuilder result = new StringBuilder();
+		for (char ch : order.toCharArray()) {
+			if (charCount[ch - 'a'] > 0) {
+				result.append(getRepeatedChar(ch, charCount[ch - 'a']));
+				charCount[ch - 'a'] = 0;
+			}
+		}
+		for (int i = 0; i < 26; i++) {
+			if (charCount[i] > 0) {
+				result.append(getRepeatedChar((char) ('a' + i), charCount[i]));
+			}
+		}
+		return result.toString();
+	}
+
+	String getRepeatedChar(char ch, int count) {
+		StringBuilder res = new StringBuilder();
+		for (int i = 0; i < count; i++) {
+			res.append(ch);
+		}
+		return res.toString();
+	}
+
 	public static void main(String[] args) {
 
 		var obj = new SolutionMonday0311();
 
-		System.out.println(obj.customSortString("cba","abcd"));
-		System.out.println(obj.customSortString("bcafg","abcd"));
+		System.out.println(obj.customSortString("cba", "abcd"));
+		System.out.println(obj.customSortString("bcafg", "abcd"));
 
 		// Custom Input
-		System.out.println(obj.customSortString("sdf","abcdefghqrst"));
-		System.out.println(obj.customSortString("abd","bbddaac"));
+		System.out.println(obj.customSortString("sdf", "abcdefghqrst"));
+		System.out.println(obj.customSortString("abd", "bbddaac"));
 
 	}
 }
