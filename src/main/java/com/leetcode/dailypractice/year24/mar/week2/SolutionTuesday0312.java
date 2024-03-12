@@ -83,8 +83,8 @@ public class SolutionTuesday0312 {
 		return head;
 	}
 	
-	//Best Solution
-	public ListNode removeZeroSumSublists(ListNode head) {
+	//Best Solution 1
+	public ListNode removeZeroSumSublists1(ListNode head) {
 		int prefixSum = 0;
 		Map<Integer, ListNode> map = new HashMap<>();
 
@@ -116,6 +116,29 @@ public class SolutionTuesday0312 {
 		}
 		return dummy.next;
 	}
+	
+	//Best Solution 2
+    public ListNode removeZeroSumSublists(ListNode head) {
+        if(head == null)return head;
+        ListNode prev = null;
+        ListNode cur = head;
+        int  running_sum=0;
+        while(cur!=null)
+        {
+            running_sum += cur.val;
+            if(running_sum==0)
+            {
+                if(prev == null)
+                head = cur.next;
+                else
+                prev.next = cur.next;
+                return removeZeroSumSublists(head);
+            }
+            cur = cur.next;
+        }
+        head.next = removeZeroSumSublists(head.next);
+        return head;
+    }
 
 	public static void main(String[] args) {
 		Consumer<ListNode> cons = x -> {
