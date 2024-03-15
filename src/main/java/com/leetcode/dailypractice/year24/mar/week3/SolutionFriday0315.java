@@ -52,7 +52,7 @@ import java.util.function.IntConsumer;
  * Submissions 3.7M Acceptance Rate 65.8%
  */
 public class SolutionFriday0315 {
-	// Mine Solution
+	// Mine Solution/ Old one
 	public int[] productExceptSelf1(int[] nums) {
 		List<Integer> res = new ArrayList<>();
 
@@ -82,13 +82,13 @@ public class SolutionFriday0315 {
 
 	}
 
-	// Best Solution 2
-	public int[] productExceptSelf(int[] nums) {
+	// Mine Solution / Best Solution
+	public int[] productExceptSelf2(int[] nums) {
 		int[] res = new int[nums.length];
 		List<Integer> zeroList = new ArrayList<>();
 		int totalProduct = 1;
 		int zeroInd = -1;
-		for (int i=0; i<nums.length;i++) {
+		for (int i = 0; i < nums.length; i++) {
 			if (nums[i] == 0) {
 				zeroList.add(0);
 				zeroInd = i;
@@ -102,16 +102,30 @@ public class SolutionFriday0315 {
 		} else if (zeroList.size() == 1) {
 			res[zeroInd] = 1;
 			for (int i = 0; i < zeroInd; i++) {
-				res[zeroInd]*=nums[i];
+				res[zeroInd] *= nums[i];
 			}
-			for (int i = zeroInd+1; i < nums.length; i++) {
-				res[zeroInd]*=nums[i];
+			for (int i = zeroInd + 1; i < nums.length; i++) {
+				res[zeroInd] *= nums[i];
 			}
 		}
 		return res;
 	}
 
 	// Best Solution 3
+	public int[] productExceptSelf(int[] nums) {
+		int product = 1;
+		int[] ans = new int[nums.length];
+		for (int i = 0; i < nums.length; i++) {
+			ans[i] = product;
+			product = product * nums[i];
+		}
+		product = 1;
+		for (int i = nums.length - 1; i >= 0; i--) {
+			ans[i] = ans[i] * product;
+			product = product * nums[i];
+		}
+		return ans;
+	}
 
 	public static void main(String[] args) {
 		IntConsumer cons = System.out::print;
