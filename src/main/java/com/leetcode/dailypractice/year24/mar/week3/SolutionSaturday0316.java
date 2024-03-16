@@ -55,8 +55,8 @@ public class SolutionSaturday0316 {
 					zerosCount++;
 				else
 					onesCount++;
-				if(zerosCount==onesCount && (res<j-i))
-						{res = j-i+1;
+				if (zerosCount == onesCount && (res < j - i)) {
+					res = j - i + 1;
 				}
 
 			}
@@ -64,37 +64,59 @@ public class SolutionSaturday0316 {
 		return res;
 	}
 
-	//Best Solution
-    public int findMaxLength(int[] nums) {
-        int n = nums.length;
-        Map<Integer, Integer> mp = new HashMap<>();
-        int sum = 0;
-        int subArrayLength = 0;
-        for (int i = 0; i < n; i++) {
-            sum += nums[i] == 0 ? -1 : 1;
-            if (sum == 0) {
-                subArrayLength = i + 1;
-            } else if (mp.containsKey(sum)) {
-                subArrayLength = Math.max(subArrayLength, i - mp.get(sum));
-            } else {
-                mp.put(sum, i);
-            }
-        }
-        return subArrayLength;
-    }
+	// Best Solution
+	public int findMaxLength2(int[] nums) {
+		int n = nums.length;
+		Map<Integer, Integer> mp = new HashMap<>();
+		int sum = 0;
+		int subArrayLength = 0;
+		for (int i = 0; i < n; i++) {
+			sum += nums[i] == 0 ? -1 : 1;
+			if (sum == 0) {
+				subArrayLength = i + 1;
+			} else if (mp.containsKey(sum)) {
+				subArrayLength = Math.max(subArrayLength, i - mp.get(sum));
+			} else {
+				mp.put(sum, i);
+			}
+		}
+		return subArrayLength;
+	}
+
+	// Best Solution 2
+	public int findMaxLength(int[] nums) {
+		int N = nums.length;
+		int[] mp = new int[2 * N + 2];
+		int current = N;
+		int result = 0;
+
+		for (int i = 0; i < N; i++) {
+			current += (nums[i] << 1) - 1;
+			if (current == N) {
+				result = i + 1;
+			} else if (mp[current] == 0) {
+				mp[current] = i + 1;
+			} else {
+				result = Math.max(result, i - mp[current] + 1);
+			}
+		}
+		return result;
+	}
+
 	public static void main(String[] args) {
 		IntConsumer cons = System.out::print;
 		var obj = new SolutionSaturday0316();
 		cons.accept(obj.findMaxLength(new int[] { 0, 1 }));
 		System.out.println();
-		cons.accept(obj.findMaxLength(new int[] { 0,1,0 }));
+		cons.accept(obj.findMaxLength(new int[] { 0, 1, 0 }));
 		System.out.println();
 
 		// Custom Input
 		cons.accept(obj.findMaxLength(new int[] { 1, 0, 0, 1, 0 }));
+		System.out.println();
 		cons.accept(obj.findMaxLength(new int[] { 1, 0, 1, 1, 0 }));
+		System.out.println();
 		cons.accept(obj.findMaxLength(new int[] { 1, 1, 1, 1, 0 }));
-
 		System.out.println();
 
 	}
