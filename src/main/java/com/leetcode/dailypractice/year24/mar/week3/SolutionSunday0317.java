@@ -56,102 +56,111 @@ import java.util.function.IntConsumer;
  * Submissions 2.5M Acceptance Rate 41.0%
  */
 public class SolutionSunday0317 {
-	//Mine Solution
-    public int[][] insert(int[][] intervals, int[] newInterval) {
-        int newtotalIntervals = intervals.length;
-     
-        for(int i=0;i<newtotalIntervals;i++) {
-        	if(newInterval[0] <= intervals[i][1]) {
-        		newtotalIntervals--;
-        		if(i+1<newtotalIntervals && newInterval[1] < intervals[i+1][0]) {
-        			break;
-        		}
-        	}
-        }
-        int[][] newIntervals = new int[newtotalIntervals][2];
-        for(int i=0;i<newtotalIntervals;i++) {
-    		int totalMergeCount = intervals.length-newtotalIntervals+1;
-        	if(newInterval[0] <= intervals[i][1]) {
-        		if(newInterval[0] <= intervals[i][0]) {
-            		newIntervals[i][0]=newInterval[0];
-        		} else {
-            		newIntervals[i][0]=intervals[i][0];
-        		}
-        		if(newInterval[1] > intervals[i+totalMergeCount-1][1]) {
-            		newIntervals[i][1]=newInterval[1];
-        		} else {
-            		newIntervals[i][1]=intervals[i+totalMergeCount-1][1];
-        		}
-        		
-        		for(int j=i+totalMergeCount+1; j<intervals.length;j++) {
-            		newIntervals[i+1][0]=intervals[j][0];
-            		newIntervals[++i][1]=intervals[j][1];	
-        		}
-        		break;
-        	} else {
-        		newIntervals[i][0]=intervals[i][0];
-        		if(i+1==intervals.length && newInterval[1]>intervals[i][1]) {
-            		newIntervals[i][1]=newInterval[1];
-        		} else {
-            		newIntervals[i][1]=intervals[i][1];
-        		}
-        	}
-        	
-        }        
-        return newIntervals;
-    }
-    
-    //Best Solution
-    public int[][] insert1(int[][] intervals, int[] newInterval) {
-        List<int[]> result = new ArrayList<>();
-        int i = 0;
-        
-        while (i < intervals.length && intervals[i][1] < newInterval[0]) {
-            result.add(intervals[i]);
-            i++;
-        }
-        
-        while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
-            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
-            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
-            i++;
-        }
-        result.add(newInterval);
-        
-        while (i < intervals.length) {
-            result.add(intervals[i]);
-            i++;
-        }
-        
-        int[][] arr = new int[result.size()][2];
-        for (int j = 0; j < result.size(); j++) {
-            arr[j] = result.get(j);
-        }
-        
-        return arr;
-    }
-    
-    
+	// Mine Solution
+	public int[][] insert(int[][] intervals, int[] newInterval) {
+		int start = -1;
+		int end = -1;
+		for (int i = 0; i < intervals.length; i++) {
+			if (start == -1 && newInterval[0] <= intervals[i][1]) {
+				start = i;
+			}
+			if (newInterval[1] <= intervals[i][1]) {
+				end = i;
+				break;
+			}
+		}
+		int[][] newIntervals = new int[intervals.length - end + start+1][2];
+		for (int i = 0; i < intervals.length; i++) {
+			if (i == start) {
+				if (newInterval[0] <= intervals[i][0]) {
+					newIntervals[i][0] = newInterval[0];
+					newIntervals[i][1] = intervals[i][1];
+				} else {
+					newIntervals[i][0] = intervals[i][0];
+					newIntervals[i][1] = intervals[i][1];
+				}
+				
+			}
+			if (i == end) {
+				if (newInterval[1] == intervals[i][0]) {
+					newIntervals[start][1] = intervals[i][1];
+					
+				} else if(newInterval[1] < intervals[i][0]){
+					newIntervals[i-(end-start)+1][0] = newInterval[1];
+					newIntervals[i-(end-start)+1][1] = intervals[i][1];
+
+				} else {
+					newIntervals[i-(end-start)+1][0] = intervals[i][0];
+					newIntervals[i-(end-start)+1][0] = intervals[i][1];
+
+				}
+
+			}
+			
+			if(i<start || i>end) {
+				newIntervals[i][0] = intervals[i][0];
+				newIntervals[i][1] = intervals[i][1];
+				
+			} else {
+				i = i + ( end - start)-1;
+			}
+			
+
+		}
+		return newIntervals;
+	}
+
+	// Best Solution
+	public int[][] insert1(int[][] intervals, int[] newInterval) {
+		List<int[]> result = new ArrayList<>();
+		int i = 0;
+
+		while (i < intervals.length && intervals[i][1] < newInterval[0]) {
+			result.add(intervals[i]);
+			i++;
+		}
+
+		while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+			newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+			newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+			i++;
+		}
+		result.add(newInterval);
+
+		while (i < intervals.length) {
+			result.add(intervals[i]);
+			i++;
+		}
+
+		int[][] arr = new int[result.size()][2];
+		for (int j = 0; j < result.size(); j++) {
+			arr[j] = result.get(j);
+		}
+
+		return arr;
+	}
+
 	public static void main(String[] args) {
 		IntConsumer cons = System.out::print;
-		Consumer<int[][]> arrConsumer = x -> Arrays.stream(x).forEach(x1->Arrays.stream(x1).forEach(cons));
-		
+		Consumer<int[][]> arrConsumer = x -> Arrays.stream(x).forEach(x1 -> Arrays.stream(x1).forEach(cons));
+
 		var obj = new SolutionSunday0317();
 
-		arrConsumer.accept(obj.insert(new int[][] { {1, 3}, {6, 9} }, new int[] {2, 5}));
+		arrConsumer.accept(obj.insert(new int[][] { { 1, 3 }, { 6, 9 } }, new int[] { 2, 5 }));
 		System.out.println();
-		arrConsumer.accept(obj.insert(new int[][] { {1,2},{3,5},{6,7},{8,10},{12,16} }, new int[] {4, 8}));
+		arrConsumer.accept(
+				obj.insert(new int[][] { { 1, 2 }, { 3, 5 }, { 6, 7 }, { 8, 10 }, { 12, 16 } }, new int[] { 4, 8 }));
 		System.out.println();
 
 		// Custom Input
-		arrConsumer.accept(obj.insert(new int[][] { {1, 10} }, new int[] {2, 4}));
+		arrConsumer.accept(obj.insert(new int[][] { { 1, 10 } }, new int[] { 2, 4 }));
 		System.out.println();
-		arrConsumer.accept(obj.insert(new int[][] { {1, 10} }, new int[] {12, 14}));
+		arrConsumer.accept(obj.insert(new int[][] { { 1, 10 } }, new int[] { 12, 14 }));
 		System.out.println();
-		arrConsumer.accept(obj.insert(new int[][] { {1, 10} }, new int[] {10, 14}));
+		arrConsumer.accept(obj.insert(new int[][] { { 1, 10 } }, new int[] { 10, 14 }));
 		System.out.println();
-		arrConsumer.accept(obj.insert(new int[][] { {1, 10} }, new int[] {12, 14}));
+		arrConsumer.accept(obj.insert(new int[][] { { 1, 10 } }, new int[] { 12, 14 }));
 
 	}
-    
+
 }
