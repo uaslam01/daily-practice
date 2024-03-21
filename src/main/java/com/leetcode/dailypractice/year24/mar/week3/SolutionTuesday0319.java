@@ -10,8 +10,6 @@ import java.util.Queue;
 import java.util.function.IntConsumer;
 
 /**
- * *
- * 
  * <pre>
  * <a href= "https://leetcode.com/problems/task-scheduler/">Problem-Link</a>
  * 
