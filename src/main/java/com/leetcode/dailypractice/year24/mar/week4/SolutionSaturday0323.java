@@ -69,7 +69,7 @@ public class SolutionSaturday0323 {
 	}
 
 	// Mine Solution
-	public void reorderList(ListNode head) {
+	public void reorderList1(ListNode head) {
 		ListNode fast = head;
 		ListNode slow = head;
 		while(fast.next!=null && fast.next.next!=null) {
@@ -97,6 +97,61 @@ public class SolutionSaturday0323 {
 	}
 
 	
+	//Best Solution 1
+	private ListNode temp;
+    private boolean isStop;
+
+    public void reorderList2(ListNode head) {
+        temp = head;
+        isStop = false;
+        reorder(head);
+    }
+
+    private void reorder(ListNode head) {
+        if (head == null) return;
+        reorder(head.next);
+
+        if (!isStop) {
+            ListNode next = temp.next;
+            temp.next = head;
+            head.next = next;
+            temp = next;
+        }
+
+        if (temp != null && temp.next == head) {
+            temp.next = null;
+            isStop = true;
+        }
+    }
+    
+    
+    //Best Solution 2
+    public static void reorderList(ListNode head) {
+		if (head.next == null) {
+			return;
+		}
+		reorderList2(head, head.next);
+	}
+
+	public static ListNode reorderList2(ListNode head, ListNode curr) {
+		ListNode temp;
+		if (curr.next != null) {
+			temp = reorderList2(head, curr.next);
+		} else {
+			temp = head;
+		}
+		if(temp == null) {
+			return null;
+		}
+		if (temp == curr  || temp.next == curr) {
+			curr.next=null;
+			return null;
+		}
+
+		curr.next = temp.next;
+		temp.next = curr;
+		return curr.next;
+	}
 	public static void main(String[] args) {
 		Consumer<ListNode> cons = x -> {
 			while (x != null) {
