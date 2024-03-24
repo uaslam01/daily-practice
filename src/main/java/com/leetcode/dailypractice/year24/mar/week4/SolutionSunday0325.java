@@ -71,10 +71,10 @@ public class SolutionSunday0325 {
     }
 	
 	//Mine Solution Best Solution
-    public int findDuplicate(int[] nums) {
+    public int findDuplicate2(int[] nums) {
         boolean[] markerArr = new boolean[nums.length];
         for(int num: nums){
-            if(markerArr[num]==false)
+            if(markerArr[num])
             {
                 markerArr[num]=true;
             } else
@@ -86,18 +86,15 @@ public class SolutionSunday0325 {
     }
     
     //With array changes
-    public int findDuplicate2(int[] nums) {
-        boolean[] markerArr = new boolean[nums.length];
-        for(int num: nums){
-            if(markerArr[num]==false)
-            {
-                markerArr[num]=true;
-            } else
-            {
-                return num;
-            }
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        for(int i=0;i<n;i++){
+            if(nums[Math.abs(nums[i])] < 0)
+                return Math.abs(nums[i]);
+
+            nums[Math.abs(nums[i])] *= -1;     
         }
-        return -1;
+        return 0;
     }
     public static void main(String[] args) {
     	IntConsumer cons = System.out::print;
