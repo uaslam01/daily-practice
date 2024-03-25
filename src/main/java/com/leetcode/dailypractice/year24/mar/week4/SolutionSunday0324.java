@@ -57,7 +57,7 @@ import java.util.function.IntConsumer;
  * Seen this question in a real interview before? 1/4 Yes No Accepted 1.7M
  * Submissions 2.8M Acceptance Rate 60.5%
  */
-public class SolutionSunday0325 {
+public class SolutionSunday0324 {
 	//Basic Solution 
 	//Time Limit Exceeded
 	public int findDuplicate1(int[] nums) {
@@ -98,7 +98,7 @@ public class SolutionSunday0325 {
     }
     public static void main(String[] args) {
     	IntConsumer cons = System.out::print;
-		var obj = new SolutionSunday0325();
+		var obj = new SolutionSunday0324();
 		cons.accept(obj.findDuplicate(new int[] { 1,3,4,2,2 }));
 		System.out.println();
 		cons.accept(obj.findDuplicate(new int[] { 3,1,3,4,2}));

@@ -59,7 +59,7 @@ import java.util.List;
  * Acceptance Rate
  * 75.3%
  */
-public class SolutionMonday0326 {
+public class SolutionMonday0325 {
     //Best Solution
     public List<Integer> findDuplicates1(int[] nums) {
         List<Integer> ans = new ArrayList<>();
