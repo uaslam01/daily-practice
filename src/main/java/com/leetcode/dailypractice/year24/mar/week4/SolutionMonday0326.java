@@ -1,10 +1,9 @@
 package com.leetcode.dailypractice.year24.mar.week4;
 
 /**
- * * <pre>
- *  * <a href=
- *  * "https://leetcode.com/problems/first-missing-positive/">Problem-Link</a>
- *  *
+ * <pre>
+ * <a href="https://leetcode.com/problems/first-missing-positive/">Problem-Link</a>
+ *
  * Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums.
  * <p>
  * You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.
@@ -41,6 +40,13 @@ package com.leetcode.dailypractice.year24.mar.week4;
  */
 
 public class SolutionMonday0326 {
+
+    // Function to swap elements in the array
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
     //Best Solution
     public int firstMissingPositive(int[] nums) {
         int n = nums.length;
@@ -62,23 +68,5 @@ public class SolutionMonday0326 {
         // If all positive integers from 1 to n are present, return n + 1
         return n + 1;
     }
-    //Best Solution 2
-    {
-        public int firstMissingPositive(int[] nums) {
-        int n = nums.length;
-        boolean[] found = new boolean[n+1];
-        for(int i = 0;i< n; i++){
-            if (nums[i]>0 && nums[i]<= n){
-                found[nums[i]]=true;
 
-            }
-        }
-        for(int i= 1;i<=n;i++){
-            if(!found[i]){
-                return i;
-            }
-        }
-        return n+1;
-    }
-    }
 }
