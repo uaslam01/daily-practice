@@ -74,6 +74,7 @@ public class SolutionMonday0422 {
     	boolean isOpenLock = false;
     	while(!isOpenLock) {
     		if(9-units<units) {
+    			
     			counter+=1;
     		} else {
     			
@@ -81,6 +82,14 @@ public class SolutionMonday0422 {
     	}
         return 0;
     }
+    
+    public boolean isBlockedDigit(String number, int index, String[] deadends) {
+    	for(var s: deadends) {
+    	}
+    	return false;
+    }
+    
+    
     
     //Best Solution
     public int openLock1(String[] deadends, String target) {
