@@ -44,7 +44,7 @@ import java.util.function.Consumer;
 
 public class SolutionMonday0506 {
 	// Mine Solution/Best Solution 1
-	public ListNode removeNodes(ListNode head) {
+	public ListNode removeNodes2(ListNode head) {
 
 		ListNode temp = head;
 		ListNode secList = null;
@@ -65,6 +65,48 @@ public class SolutionMonday0506 {
 		return secListHead;
 	}
 
+	
+	//Mine Solution 2
+	public ListNode removeNodes(ListNode head) {
+
+		ListNode reverseListHead = reverseList(head);
+		ListNode result = null;
+		int maxVal = reverseListHead.val;
+		ListNode temp = reverseListHead;
+		while (temp != null) {
+			if(temp.val>=maxVal) {
+				if(result==null) {
+					result = temp;
+				} else {
+					result.next = temp;
+					result = result.next;
+					maxVal = temp.val;
+					
+				}
+			}
+			temp = temp.next;
+			result.next = null;
+			
+		}
+		return reverseList(reverseListHead);
+	}
+	
+	public ListNode reverseList(ListNode head) {
+		ListNode temp = head;
+		ListNode reverseHead = null;
+        if(temp == null)
+			return null;
+		while(temp.next!=null) {
+			ListNode temp1 = new ListNode(temp.val);
+			temp1.next = reverseHead;
+			reverseHead = temp1;
+			temp = temp.next;
+		}
+		ListNode temp1 = new ListNode(temp.val);
+		temp1.next = reverseHead;
+		return temp1;
+		
+	}
 	// Best Solution
 	public ListNode removeNodes1(ListNode head) {
 		if (head == null || head.next == null) {
@@ -119,12 +161,17 @@ public class SolutionMonday0506 {
 				x = x.next;
 			}
 		};
-		ListNode temp = new ListNode(1, new ListNode(2));
-		ListNode temp1 = new ListNode(3, new ListNode(4));
+		ListNode temp = new ListNode(5, new ListNode(2));
+		ListNode temp1 = new ListNode(13, new ListNode(3));
 		temp.next.next = temp1;
-		temp1.next.next = new ListNode(5);
-		cons.accept(obj.removeNodes(temp1));
+		temp1.next.next = new ListNode(8);
+		cons.accept(obj.removeNodes(temp));
 		System.out.println("---");
+		
+		temp = new ListNode(1, new ListNode(1));
+		temp1 = new ListNode(1, new ListNode(1));
+		temp.next.next = temp1;
+		temp1.next.next = new ListNode(1);
 
 		cons.accept(obj.removeNodes(temp));
 		System.out.println("---");
