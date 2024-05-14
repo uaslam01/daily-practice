@@ -1,17 +1,22 @@
 package com.leetcode.dailypractice.common;
 
-public class ListNode {
-	int val;
-	ListNode next;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-	ListNode() {
+public class ListNode {
+	public int val;
+	public ListNode next;
+	public boolean isVisited;
+	public ListNode() {
 	}
 
-	ListNode(int val) {
+	public ListNode(int val) {
 		this.val = val;
 	}
 
-	ListNode(int val, ListNode next) {
+	public ListNode(int val, ListNode next) {
 		this.val = val;
 		this.next = next;
 	}
@@ -94,5 +99,62 @@ public class ListNode {
 		}
 		return head;
 	}
+	
+    public int getMaximumGold(int[][] grid) {
+        List<ListNode> list = new ArrayList<>();
+        Map<String, ListNode> map = new HashMap<>();
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int maxGold = 0;
+        for(int i=0;i<rows;i++) {
+        	for(int j=0;j<cols;j++) {
+        		if(grid[i][j]!=0) {
+        			ListNode temp = null;
+        			if(!map.containsKey(i+""+j)) {
+            			temp = new ListNode(grid[i][j]);
+            			map.put(i+""+j, temp);
+        			}
+        			if(map.containsKey((i-1)+""+j)) {
+        				temp.next = map.get((i-1)+""+j);
+        				temp = temp.next;
+        			}
+        			if(map.containsKey(i+""+(j-1))) {
+        				temp.next = map.get(i+""+(j-1));
+        				temp = temp.next;
+        			}
+        			if(i+1<rows && grid[i+1][j]>0) {
+            			ListNode temp1 = new ListNode(grid[i+1][j]);
+            			map.put((i+1)+""+j, temp1);
+        				temp.next = temp1;
+        				temp = temp.next;
+        			}
+        			if(j+1<cols && grid[i][j+1]>0) {
+        				ListNode temp1 = new ListNode(grid[i][j+1]);
+            			map.put((i)+""+j+1, temp1);
+            			temp.next = temp1;
+        				temp = temp.next;
+        			}
+        			list.add(temp);
+        		}
+        	}
+        	for(ListNode temp: list) {
+        		temp.isVisited = true;
+        		int totalGold = 0;
+        		while(temp!=null) {
+        			totalGold+=getTotalGoldByDFS(temp);
+        			temp = temp.next;
+        		}
+        		if(maxGold<totalGold)
+        			maxGold = totalGold;
+        		
+        	}
+        }
+        return maxGold;
+    }
+    int getTotalGoldByDFS(ListNode temp) {
+    	if(temp==null || temp.isVisited)
+    		return 0;
+    	return temp.val+getTotalGoldByDFS(temp.next);
+    }
 
 }
