@@ -1,6 +1,7 @@
 package com.leetcode.dailypractice.year24.may.week3;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -68,100 +69,15 @@ import java.util.Arrays;
 
 public class SolutionThursday0515 {
 	// Mine Solution /Best Solution 1
-	public long maximumHappinessSum(int[] happiness, int k) {
-		Arrays.sort(happiness);
-		long sum = 0;
-		int count = 0;
-		for (int i = happiness.length - 1; i >= 0; i--) {
-			if (happiness[i] - count >= 0)
-				sum += happiness[i] - count++;
-			k--;
-			if (k == 0)
-				break;
-		}
-		return sum;
-	}
-
-	// Best Solution 2
-	public long maximumHappinessSum2(int[] happiness, int k) {
-		Arrays.sort(happiness);
-		long sum = 0;
-		int count = 0;
-		int value = 0;
-		for (int i = happiness.length - 1; i >= happiness.length - k; i--) {
-			value = happiness[i] - count++;
-			if (value > 0)
-				sum += value;
-		}
-		return sum;
-	}
-
-	// Best Solution 3
-	public long maximumHappinessSum3(int[] happiness, int k) {
-
-		int left = 0, right = k;
-		while (left < right) {
-			int mid = left + right >> 1;
-			if (check(happiness, mid))
-				left = mid + 1;
-			else
-				right = mid;
-		}
-
-		k = left;
-		int n = happiness.length;
-		quickSort(happiness, 0, n - 1, n - k);
-		long sum = -(long) k * (k - 1) >> 1;
-		for (int i = n - 1; k-- > 0; --i)
-			sum += happiness[i];
-
-		return sum;
-	}
-
-	public boolean check(int[] happiness, int mid) {
-		int count = 0;
-		for (int x : happiness) {
-			if (x < mid)
-				continue;
-			if (++count > mid)
-				return true;
-		}
-
-		return false;
-	}
-
-	private void quickSort(int nums[], int low, int high, int k) {
-		if (low == high)
-			return;
-
-		int left = low - 1, right = high + 1, mid = low + high >> 1;
-		int x = nums[mid];
-		while (left < right) {
-			while (nums[++left] < x)
-				continue;
-			while (nums[--right] > x)
-				continue;
-			if (left < right) {
-				int temp = nums[left];
-				nums[left] = nums[right];
-				nums[right] = temp;
-			}
-		}
-
-		if (right < k)
-			quickSort(nums, right + 1, high, k);
-		else
-			quickSort(nums, low, right, k);
-	}
+    public int maximumSafenessFactor(List<List<Integer>> grid) {
+        return 0;
+    }
 
 	public static void main(String[] arg) {
 		var obj = new SolutionThursday0515();
+		List<List<Integer>> list = new ArrayList<>();
 
-		System.out.println(obj.maximumHappinessSum(new int[] { 1, 2, 3 }, 2));
-		System.out.println(obj.maximumHappinessSum(new int[] { 1, 1, 1, 1 }, 2));
-		System.out.println(obj.maximumHappinessSum(new int[] { 2, 3, 4, 5 }, 1));
-
-		System.out.println(obj.maximumHappinessSum(new int[] { 2, 3, 4, 5 }, 3));
+		System.out.println(obj.maximumSafenessFactor(list));
 
 	}
 }
