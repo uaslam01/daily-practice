@@ -59,12 +59,12 @@ import com.leetcode.dailypractice.common.TreeNode;
 
 public class SolutionFriday0517 {
 	// Mine Solution /Best Solution 1
-	public TreeNode removeLeafNodes(TreeNode root, int target) {
+	public TreeNode removeLeafNodes1(TreeNode root, int target) {
 		return root = preOrderTraversal(root, target);
 	}
 
 	private TreeNode preOrderTraversal(TreeNode root, int target) {
-		if (root == null || root.left == null && root.right == null && root.val == target)
+		if (root == null)
 			return null;
 		if (root.left != null)
 			root.left = preOrderTraversal(root.left, target);
@@ -76,21 +76,38 @@ public class SolutionFriday0517 {
 			return root;
 
 	}
-	
+
+	// Best Solution 2
+	public TreeNode removeLeafNodes(TreeNode root, int target) {
+		if (root == null) {
+			return null;
+		}
+
+		root.left = removeLeafNodes(root.left, target);
+		root.right = removeLeafNodes(root.right, target);
+
+		// Check if the current node is a leaf and matches the target
+		if (root.left == null && root.right == null && root.val == target) {
+			return null; // Delete the node
+		}
+
+		return root;
+	}
 
 	public static void main(String[] arg) {
 		var obj = new SolutionFriday0517();
 		TreeNode temp = new TreeNode(2, new TreeNode(1), new TreeNode(3));
 		temp.right.left = new TreeNode(0);
 		temp.right.right = new TreeNode(1);
-		TreeNode.InOrderTraversal(obj.removeLeafNodes(TreeNode.generateTestCase(new Integer[] {1,2,3,2,null,2,4}), 2));
+		TreeNode.InOrderTraversal(
+				obj.removeLeafNodes(TreeNode.generateTestCase(new Integer[] { 1, 2, 3, 2, null, 2, 4 }), 2));
 		System.out.println("---");
-		TreeNode.InOrderTraversal(obj.removeLeafNodes(TreeNode.generateTestCase(new Integer[] {1,3,3,3,2}), 3));
+		TreeNode.InOrderTraversal(obj.removeLeafNodes(TreeNode.generateTestCase(new Integer[] { 1, 3, 3, 3, 2 }), 3));
 		System.out.println("---");
-		TreeNode.InOrderTraversal(obj.removeLeafNodes(TreeNode.generateTestCase(new Integer[] {1,2,null,2,null,2}), 2));
+		TreeNode.InOrderTraversal(
+				obj.removeLeafNodes(TreeNode.generateTestCase(new Integer[] { 1, 2, null, 2, null, 2 }), 2));
 		System.out.println("---");
-		
-		
+
 		// Custom Input
 		TreeNode.InOrderTraversal(obj.removeLeafNodes(new TreeNode(1), 4));
 		System.out.println("---");
