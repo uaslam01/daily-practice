@@ -53,28 +53,59 @@ package com.leetcode.dailypractice.year24.may.week3;
 public class SolutionMonday0520 {
 	//Mine Solution
     public int subsetXORSum(int[] nums) {
-    	int len = nums.length;
-    	int xORSum = 0;
-    	double totalCombination = Math.pow(2, len);
-    	int[] binary = new int[len];
-    	for(int i=0;i<totalCombination; i++) {
-    		int num = i;
-    		int ind = 0;
+        int len = nums.length;
+        int xORSum = 0;
+        double totalCombination = Math.pow(2, len);
+        for (int i = 0; i < totalCombination; i++) {
+            int num = i;
+            int ind = 0;
+            int xOR = 0;
+
             while (num > 0) {
-                binary[ind++] = num % 2;
+                if (num%2 == 1) {
+                    xOR ^= nums[ind];
+                }
+                ind++;
                 num = num / 2;
             }
-    		int xOR = 0;
-    		
-    		for(int j=0;j<binary.length;j++) {
-    			if(binary[j]==1) {
-    				xOR^=nums[j];
-    			}
-    		}
-    		xORSum+=xOR;
-    	}
- 
+
+            xORSum += xOR;
+        }
         return xORSum;
+    }
+    
+    //Best Solution 2
+    public int subsetXORSum2(int[] nums) {
+        int len = nums.length;
+        int xORSum = 0;
+        double totalCombination = Math.pow(2, len);
+        for (int i = 0; i < totalCombination; i++) {
+            int num = i;
+            int ind = 0;
+            int xOR = 0;
+
+            while (num > 0) {
+                if (num%2 == 1) {
+                    xOR ^= nums[ind];
+                }
+                ind++;
+                num = num / 2;
+            }
+
+            xORSum += xOR;
+        }
+        return xORSum;
+    }
+    
+    //Best Solution
+    public int subsetXORSum3(int[] nums) {
+        return helper(nums , 0 , 0);
+    }
+
+    public int helper(int[] nums, int index, int currValue){
+        if(index == nums.length) return currValue;
+
+        return helper(nums, index+1, currValue^nums[index]) + helper(nums, index+1, currValue);
     }
 	public static void main(String[] arg) {
 		var obj = new SolutionMonday0520();
