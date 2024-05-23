@@ -1,4 +1,4 @@
-package com.leetcode.dailypractice.year24.may.week3;
+package com.leetcode.dailypractice.year24.may.week4;
 
 import java.util.ArrayList;
 import java.util.List;
