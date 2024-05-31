@@ -1,5 +1,11 @@
 package com.leetcode.dailypractice.year24.may.week3;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import com.leetcode.dailypractice.common.TreeNode;
 
 /**
@@ -89,15 +95,168 @@ public class SolutionThursday0516 {
 		}
 	}
 
+	public boolean increasingTriplet(int[] nums) {
+		int firstMin = nums[0];
+		int secMin = Integer.MAX_VALUE;
+		for (int i = 1; i < nums.length; i++) {
+			if (secMin < nums[i]) {
+				return true;
+			}
+			if (nums[i] <= firstMin) {
+				firstMin = nums[i];
+			} else
+				secMin = nums[i];
+		}
+		return false;
+	}
+
+	public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+		int maxVal = 0;
+		for (int n : candies) {
+			if (n > maxVal)
+				maxVal = n;
+		}
+		List<Boolean> result = new LinkedList<>();
+		for (int n : candies) {
+			if (n + extraCandies >= maxVal)
+				result.add(true);
+			else
+				result.add(false);
+		}
+		return result;
+	}
+
+	public boolean isSubsequence(String s, String t) {
+		if (s.length() == t.length())
+			return s.equals(t);
+		else if (s.length() == 0)
+			return true;
+		int seqLen = s.length();
+		int i = 0;
+		for (var ch : t.toCharArray()) {
+			if (ch == s.charAt(i)) {
+				i++;
+				if (i == seqLen)
+					return true;
+			}
+		}
+		return false;
+	}
+
+	public String reverseVowels(String s) {
+		int left = 0;
+		int right = s.length() - 1;
+		char[] charArr = s.toCharArray();
+		while (left < right) {
+			while (!"aeiouAEIOU".contains(charArr[left] + "") && ++left < right) {
+			}
+			while (!"aeiouAEIOU".contains(charArr[right] + "") && left < --right) {
+			}
+			if (left < right) {
+				char temp = charArr[left];
+				charArr[left] = charArr[right];
+				charArr[right] = temp;
+				left++;
+				right--;
+			}
+		}
+		return new String(charArr);
+	}
+	
+    public String gcdOfStrings(String str1, String str2) {
+       
+    	str1.matches(str2)
+    }
+
+	public int compress(char[] chars) {
+		int count = 1;
+		int index = 0;
+		char lastCh = chars[0];
+		int len = chars.length;
+		for (int i = 1; i < len; i++) {
+
+			if (lastCh == chars[i]) {
+				count++;
+			} else {
+				chars[index++] = chars[i - 1];
+				lastCh = chars[i];
+				if (count>1) {
+					String str = count +"";
+					for(var ch: str.toCharArray()) {
+						chars[index++] = ch;						
+					}
+				}
+				count = 1;
+			}
+		}
+		chars[index++] = chars[len - 1];
+		if (count>1) {
+			String str = count +"";
+			for(var ch: str.toCharArray()) {
+				chars[index++] = ch;						
+			}
+		}
+		return index;
+	}
+
+	public String reverseWords(String s) {
+		String[] arr = s.split(" +");
+		StringBuilder strBuilder = new StringBuilder();
+		for (int i = arr.length - 1; i > 0; i--) {
+			strBuilder.append(arr[i]).append(" ");
+		}
+		strBuilder.append(arr[0]);
+		return strBuilder.toString();
+	}
+
+	public int maxOperations(int[] nums, int k) {
+		Map<Integer, Integer> numbersMap = new HashMap<>();
+		int count = 0;
+		Arrays.sort(nums, 0, k);
+		for (var n : nums) {
+			if (numbersMap.containsKey(k - n)) {
+				count++;
+				int numberCount = numbersMap.get(k - n);
+				if (numberCount - 1 == 0) {
+					numbersMap.remove(k - n);
+				} else
+					numbersMap.put(k - n, numberCount - 1);
+			} else if (numbersMap.containsKey(n)) {
+				numbersMap.put(n, numbersMap.get(n) + 1);
+			} else {
+				numbersMap.put(n, 1);
+			}
+		}
+		return count;
+	}
+
 	public static void main(String[] arg) {
 		var obj = new SolutionThursday0516();
-		TreeNode temp = new TreeNode(2, new TreeNode(1), new TreeNode(3));
-		temp.right.left = new TreeNode(0);
-		temp.right.right = new TreeNode(1);
-		System.out.println(obj.evaluateTree(temp));
-		System.out.println(obj.evaluateTree(new TreeNode(0)));
+		
+		System.out.println(obj.compress(new char[] { 'a' }));
 
-		// Custom Input
-		System.out.println(obj.evaluateTree(new TreeNode(1)));
+		System.out.println(obj.compress(new char[] { 'a', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' }));
+
+		System.out.println(obj.reverseWords("a good   example"));
+
+		System.out.println(
+				obj.maxOperations(new int[] { 2, 5, 4, 4, 1, 3, 4, 4, 1, 4, 4, 1, 2, 1, 2, 2, 3, 2, 4, 2 }, 3));
+
+		System.out.println(obj.increasingTriplet(new int[] { 1, 2, 3, 4, 5 }));
+		System.out.println(obj.increasingTriplet(new int[] { 5, 4, 3, 2, 1 }));
+		System.out.println(obj.increasingTriplet(new int[] { 2, 1, 5, 0, 4, 6 }));
+
+		System.out.println(obj.increasingTriplet(new int[] { 2, 12, 0, 4, 0 }));
+		System.out.println(obj.increasingTriplet(new int[] { 2, 1, 2, 4, 4, 6 }));
+		System.out.println(obj.increasingTriplet(new int[] { 20, 100, 10, 12, 5, 13 }));
+
+//		TreeNode temp = new TreeNode(2, new TreeNode(1), new TreeNode(3));
+//		temp.right.left = new TreeNode(0);
+//		temp.right.right = new TreeNode(1);
+//		System.out.println(obj.evaluateTree(temp));
+//		System.out.println(obj.evaluateTree(new TreeNode(0)));
+//
+//		// Custom Input
+//		System.out.println(obj.evaluateTree(new TreeNode(1)));
 	}
 }

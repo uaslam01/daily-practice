@@ -72,6 +72,7 @@ public class SolutionTuesday0514 {
 		public int val;
 		public String key;
 		public boolean isVisited;
+		public List<Node> adjNodes = new ArrayList<>();
 
 		public Node(String key, int val) {
 			this.key = key;
@@ -82,122 +83,155 @@ public class SolutionTuesday0514 {
 
 	// Mine Solution /Best Solution 1
 	public int getMaximumGold(int[][] grid) {
-
-		Map<Node, List<Node>> map = new HashMap<>();
+		maxScore = 0;
+		Map<String, Node> map = new HashMap<>();
 		int rows = grid.length;
 		int cols = grid[0].length;
-		int maxGold = 0;
-		Node startingNodeDFS = null;
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				if (grid[i][j] != 0) {
-					List<Node> temp = new ArrayList<>();
+					Node temp = null;
+					if (map.containsKey(i + "" + j)) {
+						temp = map.get(i + "" + j);
+
+					} else
+						temp = new Node(i + "" + j, grid[i][j]);
 					if (i - 1 >= 0 && grid[i - 1][j] > 0) {
-						temp.add(new Node((i - 1) + "" + j, grid[i - 1][j]));
+						if (map.containsKey((i - 1) + "" + j)) {
+							Node node = map.get((i - 1) + "" + j);
+							temp.adjNodes.add(node);
+						} else {
+							Node node = new Node((i-1) + "" + j, grid[i-1][j]);
+							temp.adjNodes.add(node);
+							map.put((i-1) + "" + j, node);
+						}
 					}
-					if (j - 1 >= 0 && grid[i][j - 1] > 0) {
-						temp.add(new Node(i + "" + (j - 1), grid[i][j - 1]));
+					if (j - 1 >= 0 && grid[i][j-1] > 0) {
+						if (map.containsKey(i + "" + (j - 1))) {
+							Node node = map.get(i + "" + (j - 1));
+							temp.adjNodes.add(node);
+						} else {
+							Node node = new Node(i + "" + (j - 1), grid[i][j-1]);
+							temp.adjNodes.add(node);
+							map.put(i + "" + (j - 1), node);
+						}
 					}
 					if (i + 1 < rows && grid[i + 1][j] > 0) {
-						temp.add(new Node((i + 1) + "" + j, grid[i + 1][j]));
+						if (map.containsKey((i+ 1) + "" + j)) {
+							Node node = map.get((i + 1) + "" + j);
+							temp.adjNodes.add(node);
+						} else {
+							Node node = new Node((i+1) + "" + j, grid[i+1][j]);
+							temp.adjNodes.add(node);
+							map.put((i+1) + "" + j, node);
+						}
 					}
-					if (j + 1 < cols && grid[i][j + 1] > 0) {
-						temp.add(new Node(i + "" + (j + 1), grid[i][j + 1]));
+					if (j + 1 < cols && grid[i][j+1] > 0) {
+						if (map.containsKey(i + "" + (j + 1))) {
+							Node node = map.get(i + "" + (j + 1));
+							temp.adjNodes.add(node);
+						} else {
+							Node node = new Node(i + "" + (j + 1), grid[i][j+1]);
+							temp.adjNodes.add(node);
+							map.put(i + "" + (j + 1), node);
+						}
 					}
-					startingNodeDFS = new Node(i + "" + j, grid[i][j]);
-					map.put(startingNodeDFS, temp);
+					map.put(i + "" + j, temp);
 				}
 			}
 
 		}
-		getTotalGoldByDFS(startingNodeDFS, map);
-		return maxGold;
+		for (var node : map.values()) {
+			getTotalGoldByDFS(node, map);
+
+		}
+		return maxScore;
 	}
 
-	private int getTotalGoldByDFS(Node temp, Map<Node, List<Node>> map) {
+	private int getTotalGoldByDFS(Node temp, Map<String, Node> map) {
 		temp.isVisited = true;
-		List<Node> list = map.get(temp);
-		int score =0;
-		if(list.isEmpty())
+		List<Node> list = temp.adjNodes;
+		int score = 0;
+		if (list == null)
 			return temp.val;
-		for(Node node: list) {
-			if(!node.isVisited) {
-				score += getTotalGoldByDFS(node, map);
-				
+		for (Node node : list) {
+			if (!node.isVisited) {
+				score = Math.max(score, getTotalGoldByDFS(node, map));
+
 			}
 		}
-		score+=temp.val;
-		if(score>maxScore)
+		score += temp.val;
+		if (score > maxScore)
 			maxScore = score;
 		return score;
 	}
+
 	static int maxScore = 0;
 
-	
-    public int max = 0;
-    public void ways(int[][] grid,int r, int c, int gold){
-        if(gold > max){
-            max = gold;
-        }
-        if(grid[r][c] == 0){
-            return;
-        }
-        int a = grid[r][c];
-        grid[r][c] = 0;
-        if(r - 1 >= 0){
-            ways(grid,r - 1, c, gold + a);
-        }
-        if(r + 1 <= grid.length - 1){
-            ways(grid,r + 1,c,gold + a);
-        }
-        if(c + 1 <= grid[0].length - 1){
-            ways(grid,r, c + 1, gold + a);
-        }
-        if(c - 1 >= 0){
-            ways(grid,r, c - 1, gold + a);
-        }
-        grid[r][c] = a;
-        return ;
+	public int max = 0;
 
-    }
+	public void ways(int[][] grid, int r, int c, int gold) {
+		if (gold > max) {
+			max = gold;
+		}
+		if (grid[r][c] == 0) {
+			return;
+		}
+		int a = grid[r][c];
+		grid[r][c] = 0;
+		if (r - 1 >= 0) {
+			ways(grid, r - 1, c, gold + a);
+		}
+		if (r + 1 <= grid.length - 1) {
+			ways(grid, r + 1, c, gold + a);
+		}
+		if (c + 1 <= grid[0].length - 1) {
+			ways(grid, r, c + 1, gold + a);
+		}
+		if (c - 1 >= 0) {
+			ways(grid, r, c - 1, gold + a);
+		}
+		grid[r][c] = a;
+		return;
 
-    public int gridWithNoZeros(int[][] grid){
-        int count = 0;
-        for(int i = 0; i < grid.length; i++){
-            for (int j = 0; j < grid[0].length; j++){
-                if(grid[i][j] == 0){
-                    return -1;
-                }
-                else
-                    count += grid[i][j];
-            }
-        }
-        return count;
-    }  
+	}
 
+	public int gridWithNoZeros(int[][] grid) {
+		int count = 0;
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (grid[i][j] == 0) {
+					return -1;
+				} else
+					count += grid[i][j];
+			}
+		}
+		return count;
+	}
 
-    //Best Solution 2
-    public int getMaximumGold2(int[][] grid) {
+	// Best Solution 2
+	public int getMaximumGold2(int[][] grid) {
 
-        int count = gridWithNoZeros(grid);
-        if(count != -1) return count;
+		int count = gridWithNoZeros(grid);
+		if (count != -1)
+			return count;
 
-        
-        for(int i = 0; i < grid.length; i ++){
-            for(int j = 0 ; j < grid[0].length ; j++){
-                ways(grid,i,j,0);
-            }
-        }
-        return max;
-    }
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				ways(grid, i, j, 0);
+			}
+		}
+		return max;
+	}
+
 	public static void main(String[] arg) {
 		var obj = new SolutionTuesday0514();
 
 		System.out.println(obj.getMaximumGold(new int[][] { { 0, 6, 0 }, { 5, 8, 7 }, { 0, 9, 0 } }));
-		System.out.println(obj.getMaximumGold(new int[][] { { 0, 6, 0 }, { 5, 8, 7 }, { 0, 9, 0 } }));
+		System.out.println(obj.getMaximumGold(new int[][] { { 1,0,7}, {2,0,6}, {3,4,5}, {0,3,0}, {9,0,20 } }));
 
 		// Customer Input
-		System.out.println(obj.getMaximumGold(new int[][] { { 0, 6, 0 }, { 5, 8, 7 }, { 0, 9, 0 } }));
+		//System.out.println(obj.getMaximumGold(new int[][] { { 0, 6, 0 }, { 5, 8, 7 }, { 0, 9, 0 } }));
 
 	}
 }
